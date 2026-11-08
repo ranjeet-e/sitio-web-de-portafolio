@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ranjeet Epili – AI/ML engineer</title>
+<meta name="description" content="Ranjeet Epili is an AI/ML engineer in Mumbai and the author of TokenCraft, an open-source GPT-style language model on PyPI.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#030304;      /* near pure black (was #080b10) */
+  --fg:#f4f4f5;
+  --muted:#a1a1aa;   /* neutral grey, no blue tint */
+  --card:#09090b;    /* cards sit just above the background */
+  --line:#232326;    /* dashed lines and borders */
+  --dot:#1c1c1f;     /* background dot grid */
+  --accent:#f5a524; --ok:#4ade80; color-scheme:dark;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 5rem)}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 1rem/1.65 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+  background-image:radial-gradient(var(--dot) 1px,transparent 1.2px);background-size:26px 26px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.skip{position:absolute;left:-999px;top:0}
+.skip:focus{left:1rem;top:1rem;z-index:50;background:var(--fg);color:var(--bg);padding:.5rem .8rem;border-radius:6px}
+.mono,h1,h2,h3,nav,.btn,.tag,.stat b,.term{font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace}
+.wrap{
+  width:min(1040px, 100% - 2rem);  /* exactly 840px between the lines on desktop */
+  margin:0 auto;
+  padding:0 22px;
+  position:relative;
+}
+.wrap::before,.wrap::after{
+  content:"";
+  position:absolute;
+  top:0; bottom:0;
+  border-left:1px dashed var(--line);
+  z-index:25;
+  pointer-events:none;
+}
+.wrap::before{left:0}
+.wrap::after{right:0}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;display:flex;justify-content:space-between;align-items:center;gap:2rem;padding:1.1rem 0;background:color-mix(in srgb,var(--bg) 90%,transparent);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px dashed var(--line)}
+header.top b{font-size:.95rem;white-space:nowrap}
+nav{display:flex;align-items:center;gap:2.2rem}
+nav a{color:var(--muted);text-decoration:none;font-size:.88rem;padding:.3rem 0;border-bottom:2px solid transparent;white-space:nowrap}
+nav a:hover{color:var(--fg)}
+nav a.active{color:var(--fg);border-bottom-color:var(--accent)}
+.eyebrow{
+  color:var(--muted);
+  font-size:.95rem;
+  letter-spacing:.02em;
+  margin:0 0 1.2rem;
+}
+h1{font-size:clamp(2rem,5.5vw,3.7rem);line-height:1.08;letter-spacing:-.03em;margin:0;max-width:17ch}
+h2{font-size:1.5rem;margin:0 0 .4rem;letter-spacing:-.02em}
+h2::before{content:"// ";color:var(--accent)}
+h3{font-size:1.3rem;margin:0;letter-spacing:-.01em}
+section{padding:4rem 0;border-top:1px dashed var(--line)}
+.sec-sub{color:var(--muted);margin:0 0 2rem;font-size:.9rem;max-width:62ch}
+.hero{
+
+  min-height:calc(100svh - 5.5rem - env(safe-area-inset-top,0px));
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  gap:3rem;
+  padding:4rem 0 2.5rem;
+}
+.hero-main{margin:auto 0}   /* centers headline + buttons in the free space */
+.stats-title{margin-top:0}
+.lead{color:var(--muted);max-width:58ch;margin:1.4rem 0 1.8rem;font-size:1.08rem}
+.cta{display:flex;flex-wrap:wrap;gap:.7rem}
+.btn{display:inline-block;padding:.65rem 1.1rem;border:1px solid var(--line);border-radius:6px;color:var(--fg);text-decoration:none;font-size:.88rem;background:var(--card);cursor:pointer}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--fg);color:var(--bg);border-color:var(--fg);font-weight:700}
+.stats-title{color:var(--muted);font-size:.8rem;margin-top:2.5rem}
+.stats{display:flex;flex-wrap:wrap;margin-top:1rem;border-top:1px solid var(--line);padding-top:1.4rem}
+.stat{padding-right:2rem;margin-right:2rem;border-right:1px solid var(--line);margin-bottom:.8rem}
+.stat:last-child{border:0}
+.stat b{display:block;font-size:2rem;letter-spacing:-.03em}
+.stat span{color:var(--muted);font-size:.85rem}
+
+.about{display:grid;grid-template-columns:1.2fr .8fr;gap:3rem}
+.about p{margin:0 0 1rem;max-width:56ch}
+.about .muted{color:var(--muted)}
+.about h3{font-size:1rem;margin:0 0 .6rem}
+.about ul{margin:0 0 1.6rem;padding-left:1.1rem;color:var(--muted)}
+.about li{margin-bottom:.3rem}
+
+.proj{display:grid;grid-template-columns:1.05fr .95fr;gap:2.2rem;margin-bottom:4rem}
+.kicker{color:var(--muted);font-size:.8rem;margin:0 0 .5rem}
+.proj p.desc{color:var(--muted);margin:.8rem 0 1.2rem}
+.tags{display:flex;flex-wrap:wrap;gap:.4rem;list-style:none;margin:1rem 0;padding:0}
+.tag{border:1px solid var(--line);border-radius:5px;padding:.15rem .6rem;font-size:.78rem;background:var(--card)}
+.links a{margin-right:1.1rem;font-size:.9rem}
+.install{display:inline-flex;align-items:center;gap:.9rem;border:1px dashed var(--line);border-radius:8px;background:var(--card);padding:.6rem .9rem;font-size:.9rem;margin:.2rem 0 1rem}
+.install button{background:none;border:0;color:var(--accent);font:inherit;font-size:.78rem;cursor:pointer;padding:0}
+.facts{display:flex;flex-wrap:wrap;gap:.5rem;margin:0 0 1rem}
+.facts span{border:1px solid var(--line);border-radius:5px;padding:.2rem .55rem;font-size:.78rem;color:var(--muted)}
+.case{margin-bottom:1rem}
+.case summary{list-style:none;cursor:pointer;display:inline-block;margin:0 0 1rem}
+.case summary::-webkit-details-marker{display:none}
+.case summary::after{content:" \2304"}
+.case[open] summary::after{content:" \2303"}
+.case ul{margin:0 0 .5rem;padding-left:1.1rem;color:var(--muted)}
+.case li{margin-bottom:.35rem}
+.note{color:var(--muted);font-size:.85rem;margin:.6rem 0 0}
+.term{background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;align-self:start;font-size:.8rem}
+.term-bar{display:flex;align-items:center;gap:.4rem;padding:.6rem .8rem;border-bottom:1px solid var(--line);color:var(--muted)}
+.term-bar i{width:.6rem;height:.6rem;border-radius:50%;background:var(--line);display:inline-block}
+.term-bar em{margin-left:auto;font-style:normal;font-size:.75rem}
+.term-body{padding:1rem;min-height:12rem;overflow-x:auto}
+.term-body .ln{display:block;color:var(--muted);margin-bottom:.35rem;opacity:0;white-space:pre}
+.term-body .ln.show{opacity:1}
+.term-body .ln.cmd{color:var(--fg)}
+.term-body .ln.ok{color:var(--ok)}
+.term-body .ln.hl{color:var(--accent)}
+.term-foot{display:flex;justify-content:space-between;gap:1rem;padding:.55rem .8rem;border-top:1px solid var(--line);color:var(--muted);font-size:.72rem}
+.term-foot button{background:none;border:0;color:var(--accent);font:inherit;cursor:pointer;padding:0}
+.hero{position:relative;overflow:hidden}
+.hero-art{
+  position:absolute;
+  right:-2%;
+  top:50%;
+  transform:translateY(-50%);
+  height:92%;
+  width:auto;
+  max-width:60%;
+  object-fit:contain;
+  opacity:.9;
+  pointer-events:none;
+  z-index:0;
+  -webkit-mask-image:linear-gradient(to left,#000 55%,transparent 100%);
+          mask-image:linear-gradient(to left,#000 55%,transparent 100%);
+}
+.hero-main,.hero-foot{position:relative;z-index:1}   /* text stays above the image */
+
+.graph{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:1rem;margin-bottom:1.4rem}
+.graph p{margin:0 0 .8rem;font-weight:500}
+.graph .scroll{overflow-x:auto}
+.graph img{display:block;width:100%;min-width:640px;height:auto;border-radius:6px}
+
+.timeline{list-style:none;margin:0;padding:0 0 0 1.4rem;border-left:2px solid var(--line);max-width:74ch}
+.timeline li{position:relative;padding-bottom:2rem}
+.timeline li:last-child{padding-bottom:0}
+.timeline li::before{content:"";position:absolute;left:calc(-1.4rem - 6px);top:.55rem;width:10px;height:10px;border-radius:50%;background:var(--accent)}
+.timeline h3{font-size:1.1rem}
+.timeline .when{color:var(--muted);font-size:.8rem;margin:.25rem 0 .6rem}
+.timeline ul{margin:0;padding-left:1.1rem;color:var(--muted)}
+.timeline li li{padding:0;margin-bottom:.35rem}
+.timeline li li::before{display:none}
+.sub{margin-top:3rem;padding-top:3rem;border-top:1px dashed var(--line)}
+.grp{font-size:1rem;color:var(--muted);margin:2.2rem 0 1rem}
+.roles{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+.role{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:1.2rem 1.3rem}
+.role h3{font-size:1.1rem}
+.role .when{color:var(--muted);font-size:.8rem;margin:.25rem 0 .7rem}
+.role ul{margin:0;padding-left:1.1rem;color:var(--muted)}
+.role li{margin-bottom:.35rem}
+.skillgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.6rem 2.5rem}
+.skillgrid h3{font-size:.95rem;margin-bottom:.1rem}
+.skillgrid .tags{margin:.5rem 0 0}
+/* Contact scene layout: sticky WebGL2 ASCII night screen, reading area, and meadow. */
+.contact{
+  --contact-screen:100vh;
+  --contact-screen:100svh;
+  display:block;
+  min-height:var(--contact-screen);
+  padding:0;
+  position:relative;
+  isolation:isolate;
+  text-align:center;
+}
+.contact::before{
+  content:"";position:absolute;inset:0;
+  left:50%;width:100vw;transform:translateX(-50%);
+  background:#020408;z-index:-1;pointer-events:none;
+}
+.contact-night{
+  position:sticky;top:0;
+  height:var(--contact-screen);
+  margin:0 0 calc(-1 * var(--contact-screen));
+  width:100vw;
+  margin-left:calc((100% - 100vw)/2);
+  overflow:hidden;
+  z-index:0;
+  background:#020408;
+  pointer-events:none;
+}
+#contact-canvas,#contact-still{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  left:0;top:0;transform:none;
+  display:block;z-index:0;pointer-events:none;
+}
+#contact-canvas{opacity:0;transition:opacity .6s ease}
+.contact-night[data-renderer="ready"] #contact-canvas{opacity:1}
+.contact-night[data-renderer="ready"] #contact-still{opacity:0}
+.contact-content{
+  position:relative;z-index:1;
+  width:100%;
+  padding:clamp(2.5rem,5.5vh,4rem) 0 1rem;
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-start;
+  pointer-events:none;
+}
+.contact-content a,.contact-content button{pointer-events:auto}
+.contact h2::before{content:""}
+.contact h2{margin:0 0 1.4rem;font-size:clamp(2.2rem,5vw,3.6rem);line-height:1.15;letter-spacing:-.055em;text-shadow:0 2px 28px #020408}
+.contact .email{display:inline-flex;align-items:center;justify-content:center;gap:1.2rem;padding:1.15rem 1.4rem;font-size:clamp(.9rem,2.2vw,1.25rem);background:rgba(5,7,11,.65);border:1px dashed var(--line);border-radius:8px;color:var(--fg);cursor:pointer;max-width:100%;overflow-wrap:anywhere;transition:border-color .2s,box-shadow .2s}
+.contact .email:hover{border-color:var(--accent);box-shadow:0 0 16px rgba(245,165,36,0.22)}
+.contact .email svg{flex:0 0 auto;width:18px;height:18px;color:var(--muted)}
+.contact .hint{margin:.5rem 0 1.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-size:.78rem}
+.contact .cta{display:flex;flex-wrap:wrap;gap:.8rem;justify-content:center}
+.contact .btn{background:rgba(5,7,11,.65);padding:.85rem 1.5rem}
+.contact-foot{margin-top:1.6rem;color:var(--muted);font-size:.85rem;border-top:none;padding:0;pointer-events:auto}
+.contact-meadow{position:relative;min-height:clamp(280px,40vh,420px);z-index:1;pointer-events:none}
+footer{padding:2rem 0 3rem;border-top:1px dashed var(--line);color:var(--muted);font-size:.85rem}
+@media(max-width:820px){
+  .contact .cta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:min(370px,100%);margin:0 auto}
+  .contact .cta .btn{padding:.85rem .6rem}
+  .contact .email{gap:.6rem;padding:1rem .8rem;letter-spacing:-.04em}
+}
+@media(max-height:650px){
+  .contact-content{padding:1.8rem 0 .8rem}
+  .contact h2{margin-bottom:.8rem}
+  .contact .hint{margin:.3rem 0 1.2rem}
+  .contact-foot{margin-top:1rem}
+}
+
+@media (max-width:820px){
+  header.top{flex-wrap:wrap;gap:.4rem 1rem;padding:.8rem 0 .5rem}
+  nav{width:100%;overflow-x:auto;gap:1.6rem;padding-bottom:.4rem;scrollbar-width:none}
+  nav::-webkit-scrollbar{display:none}
+  .proj,.about{grid-template-columns:1fr}
+  .about{gap:1.5rem}
+  .skillgrid{grid-template-columns:1fr}
+  .roles{grid-template-columns:1fr}
+  .cta .btn{flex:1 1 100%;text-align:center;padding:.85rem 1.1rem}
+  .stats{display:grid;grid-template-columns:1fr 1fr}
+  .stat{border:0;margin-right:0;padding-right:0}
+  .hero-art{opacity:.25;max-width:100%;right:-10%}
+}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#work">Skip to content</a>
+<div class="wrap">
+<header class="top">
+  <b class="mono">ranjeet epili</b>
+  <nav aria-label="Main"><a href="#work">work.</a><a href="#about">about.</a><a href="./Ranjeet_Epili_AI_ML_Intern_Resume.pdf" target="_blank" rel="noopener">resume.</a><a href="#contact">contact.</a></nav>
+</header>
+
+<main>
+<div class="hero">
+  <div class="hero-main">
+    <p class="eyebrow mono">Ranjeet Epili</p>
+    <h1>Building stuff I could easily lecture on for hours.</h1>
+    <p class="lead mono">AI/ML Engineer & Product Builder · Applied AI, Language Models & Web · Mumbai</p>
+    <div class="cta">
+      <a class="btn primary" href="#work">View projects</a>
+      <a class="btn" href="https://pypi.org/project/tokencraft-gpt/" rel="noopener">PyPI package</a>
+      <a class="btn" href="https://github.com/ranjeet-e" rel="noopener">GitHub</a>
+    </div>
+  </div>
+  <img class="hero-art" src="hero-portrait.png" alt="" aria-hidden="true">
+</div>
+
+<section id="work">
+  <h2 class="mono">projects</h2>
+  <p class="sec-sub mono">things i’ve built and shipped</p>
+  <article class="proj">
+    <div>
+      <p class="kicker mono">React · Node.js · MongoDB · Socket.IO · Razorpay</p>
+      <h3>La Roche Cafe</h3>
+      <p class="desc">A full-stack pre-ordering app for my campus canteen. Students order ahead, skip the queue, and track their food, while the kitchen sees orders live on a real-time dashboard.</p>
+      <ul class="tags"><li class="tag">React</li><li class="tag">Node.js</li><li class="tag">Express</li><li class="tag">MongoDB</li><li class="tag">Socket.IO</li><li class="tag">Razorpay</li></ul>
+      <div class="links"><a href="https://www.larochecafe.in" rel="noopener">Live app ↗</a></div>
+    </div>
+    <div class="term" data-term>
+      <div class="term-bar"><i></i><i></i><i></i><em>kitchen · sample session</em></div>
+      <div class="term-body" aria-live="polite">
+        <span class="ln cmd">$ watch orders</span>
+        <span class="ln">order placed by student</span>
+        <span class="ln hl">kitchen accepted</span>
+        <span class="ln">status: preparing</span>
+        <span class="ln ok">✓ ready for pickup</span>
+      </div>
+      <div class="term-foot"><span>illustrative, not real order data</span><button type="button" data-replay>replay</button></div>
+    </div>
+  </article>
+  <article class="proj">
+    <div>
+      <p class="kicker mono">Python · PyTorch · open source · MIT</p>
+      <h3>TokenCraft (tokencraft-gpt)</h3>
+      <p class="desc">An educational decoder-only GPT language model implemented from scratch with PyTorch and published on PyPI. It helps learners see tokenization, embeddings, attention, training, and text generation working end to end.</p>
+      <div class="install mono"><span>pip install tokencraft-gpt</span><button type="button" data-copy="pip install tokencraft-gpt">copy</button></div>
+      <div class="facts mono"><span>v0.1.1</span><span>released Oct 31, 2026</span><span>Python 3.10+</span><span>MIT license</span></div>
+      <details class="case"><summary class="btn mono">What’s inside</summary>
+        <ul>
+          <li>Tokenizer and token IDs</li>
+          <li>Token, positional, and combined input embeddings</li>
+          <li>Causal self-attention with query, key, and value projections</li>
+          <li>Multi-head attention, feed-forward network, and transformer blocks</li>
+          <li>Next-token training and autoregressive generation</li>
+        </ul>
+        <p class="note">It’s an educational project, not a pretrained chatbot, and the README says so plainly.</p>
+      </details>
+      <ul class="tags"><li class="tag">Python</li><li class="tag">PyTorch</li><li class="tag">Transformers</li><li class="tag">Attention</li><li class="tag">PyPI</li></ul>
+      <div class="links"><a href="https://pypi.org/project/tokencraft-gpt/" rel="noopener">PyPI</a><a href="https://github.com/ranjeet-e" rel="noopener">GitHub</a></div>
+    </div>
+    <div class="term" data-term>
+      <div class="term-bar"><i></i><i></i><i></i><em>python · tokencraft</em></div>
+      <div class="term-body" aria-live="polite">
+        <span class="ln cmd">$ pip install tokencraft-gpt</span>
+        <span class="ln cmd">&gt;&gt;&gt; import tokencraft</span>
+        <span class="ln cmd">&gt;&gt;&gt; from tokencraft import GPT, Tokenizer</span>
+        <span class="ln cmd">&gt;&gt;&gt; print(tokencraft.__version__)</span>
+        <span class="ln ok">0.1.1</span>
+        <span class="ln hl">&gt;&gt;&gt; help(GPT)   # inspect the model API</span>
+      </div>
+      <div class="term-foot"><span>based on the package README</span><button type="button" data-replay>replay</button></div>
+    </div>
+  </article>
+  <article class="proj">
+    <div>
+      <p class="kicker mono">Document automation · PDF &amp; Word · privacy first · open source</p>
+      <h3>iLoveSwap (doc-standardizer)</h3>
+      <p class="desc">A private document tool that updates details across PDF and Word files in one click. It detects text sections, replaces outdated titles, dates, or contact details, and exports standardized files while preserving layout—locally on your device.</p>
+      <div class="install mono"><span>git clone https://github.com/ranjeet-e/iLoveSwap.git</span><button type="button" data-copy="git clone https://github.com/ranjeet-e/iLoveSwap.git">copy</button></div>
+      <div class="facts mono"><span>v1.0.0</span><span>100% private · no cloud uploads</span><span>batch processing</span><span>free &amp; open source</span></div>
+      <details class="case"><summary class="btn mono">What’s inside</summary>
+        <ul>
+          <li><strong>Private &amp; secure</strong> — files stay on your device</li>
+          <li><strong>PDF &amp; Word</strong> — work with .pdf and .docx</li>
+          <li><strong>Layout preservation</strong> — maintain tables, fonts, images, and charts</li>
+          <li><strong>Batch updates</strong> — apply one change across multiple documents</li>
+          <li><strong>Click-to-edit</strong> — select text to update or erase</li>
+        </ul>
+      </details>
+      <ul class="tags"><li class="tag">React</li><li class="tag">Vite</li><li class="tag">PDF engine</li><li class="tag">Word (.docx)</li><li class="tag">TailwindCSS</li><li class="tag">Browser extension</li></ul>
+      <div class="links"><a href="https://github.com/ranjeet-e/iLoveSwap" rel="noopener">GitHub source ↗</a></div>
+    </div>
+    <div class="term" data-term>
+      <div class="term-bar"><i></i><i></i><i></i><em>terminal · document-updater</em></div>
+      <div class="term-body" aria-live="polite">
+        <span class="ln cmd">$ iloveswap --update-all ./documents/</span>
+        <span class="ln ok">[Privacy Check] 100% local · no external upload</span>
+        <span class="ln">[Scanner] PDF &amp; Word files detected</span>
+        <span class="ln hl">✓ headers, titles, and summary sections updated</span>
+        <span class="ln">✓ tables, charts, and formatting preserved</span>
+        <span class="ln ok">✓ export clean files or a ZIP bundle</span>
+      </div>
+      <div class="term-foot"><span>local document workflow</span><button type="button" data-replay>replay</button></div>
+    </div>
+  </article>
+
+  <article class="proj">
+    <div>
+      <p class="kicker mono">Python · computer vision · audio · AI</p>
+      <h3>Echoes of India</h3>
+      <p class="desc">A web app about ancient instruments and an AI soundfont, built so people can hear the past. The idea behind it: reconstruct how an ancient or extinct instrument may have sounded, starting from a single photograph. First-year capstone research.</p>
+      <ul class="tags"><li class="tag">Python</li><li class="tag">Computer vision</li><li class="tag">Audio synthesis</li><li class="tag">ML</li></ul>
+      <div class="links"><a href="https://echoes-from-india.vercel.app/" rel="noopener">Live site ↗</a></div>
+    </div>
+    <div class="term" data-term>
+      <div class="term-bar"><i></i><i></i><i></i><em>echoes · pipeline idea</em></div>
+      <div class="term-body" aria-live="polite">
+        <span class="ln cmd">$ echoes analyze instrument.jpg</span>
+        <span class="ln">loading image</span>
+        <span class="ln hl">inferring timbre, pitch, cultural origin</span>
+        <span class="ln">building synthesis parameters</span>
+        <span class="ln ok">✓ audio rendered</span>
+      </div>
+      <div class="term-foot"><span>illustrative, not real output</span><button type="button" data-replay>replay</button></div>
+    </div>
+  </article>
+
+
+<div id="github" class="sub">
+  <h2 class="mono"></h2>
+  <p class="sec-sub mono"></p>
+  <div class="graph">
+    <p></p>
+    <div class="scroll"><img src="  ">
+  </div>
+  <div class="cta">
+    <a class="btn" href="https://github.com/ranjeet-e" rel="noopener">GitHub profile ↗</a>
+    <a class="btn" href="https://gitfut.com/ranjeet-e" rel="noopener">GitFut card ↗</a>
+  </div>
+</div>
+</section>
+
+<section id="about">
+  <h2 class="mono">about</h2>
+  <div class="about" style="margin-top:1.5rem">
+    <div>
+      <p>I’m Ranjeet Epili, an AI/ML engineer in Mumbai. I like understanding how models work by building them myself, from a GPT-style language model on PyPI to apps that real people use.</p>
+      <p class="muted">Currently studying Electronics and Computer Science at Shah &amp; Anchor Kutchhi Engineering College (SAKEC), Mumbai.</p>
+    </div>
+    <div>
+      <h3 class="mono">currently</h3>
+      <ul>
+        <li>SY ECS @ SAKEC (Semester III)</li>
+        <li>AI/ML program with IIT Patna at Masai School</li>
+        <li>Maintaining TokenCraft, my open-source GPT</li>
+      </ul>
+      <h3 class="mono">interests</h3>
+      <ul>
+        <li>Language models and transformers</li>
+        <li>Computer vision and audio</li>
+        <li>Generative AI: RAG and LoRA fine-tuning</li>
+        <li>Open-source tools</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="resume">
+  <h2 class="mono">Experience</h2>
+    <div class="roles">
+    <article class="role">
+      <h3>Operations Assistant</h3>
+      <p class="when mono">Eyeconic by Dr. Lalla · Oct 2024 – Jan 2025</p>
+      <ul>
+        <li>Maintained student databases and produced weekly and monthly KPI reports for 250+ students across 9 mentors.</li>
+        <li>Found bottlenecks in student journeys and recommended data-backed fixes.</li>
+      </ul>
+    </article>
+    <article class="role">
+      <h3>Operations Manager</h3>
+      <p class="when mono">Eyeconic by Dr. Lalla · Feb 2025 – July 2026</p>
+      <ul>
+        <li>Promoted within 4 months. Led operations for 250+ students and 9 mentors across content, tech, and student-success teams.</li>
+        <li>Designed SOPs that improved team turnaround time by an estimated 25%.</li>
+        <li>Tracked KPIs on Google Sheets dashboards and turned them into recommendations for management.</li>
+      </ul>
+    </article>
+    <article class="role">
+      <h3>Article Head</h3>
+      <p class="when mono">SAKEC Alumni Association</p>
+      <p class="when mono">Alumni feature · Gugan Thoppe (IT 2007)</p>
+      <ul><li>Wrote an alumni article about Gugan Thoppe, a SAKEC alumnus who is now an Assistant Professor at IISc Bengaluru.</li><li><a href="https://alumni.sakec.ac.in/newsroom/news/Gugan-Thoppe-IT-2007-Earns-Tenure-at-the-Indian-Institute-of-Science" rel="noopener">Read the article ↗</a></li></ul>
+    </article>
+    <article class="role">
+      <h3>Member</h3>
+      <p class="when mono">The Gender Lab, Avanti Foundation · since Grade 8</p>
+      <ul><li>Youth advocacy and facilitation through the Boys Program.</li></ul>
+    </article>
+  </div>
+  <h3 class="mono grp">Skills</h3>
+  <div class="skillgrid">
+    <div><h3 class="mono">Deep learning</h3><ul class="tags"><li class="tag">PyTorch</li><li class="tag">TensorFlow</li><li class="tag">Keras</li><li class="tag">Scikit-Learn</li></ul></div>
+    <div><h3 class="mono">Generative AI</h3><ul class="tags"><li class="tag">LangChain</li><li class="tag">LangGraph</li><li class="tag">RAG</li><li class="tag">LoRA/QLoRA</li><li class="tag">Hugging Face</li><li class="tag">Prompt engineering</li></ul></div>
+    <div><h3 class="mono">Data science</h3><ul class="tags"><li class="tag">NumPy</li><li class="tag">Pandas</li><li class="tag">Matplotlib</li><li class="tag">Seaborn</li><li class="tag">SciPy</li><li class="tag">Computer vision</li></ul></div>
+    <div><h3 class="mono">Languages</h3><ul class="tags"><li class="tag">Python</li><li class="tag">JavaScript</li><li class="tag">HTML</li><li class="tag">CSS</li></ul></div>
+    <div><h3 class="mono">Web and backend</h3><ul class="tags"><li class="tag">React</li><li class="tag">Node.js</li><li class="tag">Express</li><li class="tag">MongoDB</li><li class="tag">Socket.IO</li><li class="tag">REST APIs</li></ul></div>
+    <div><h3 class="mono">People</h3><ul class="tags"><li class="tag">Team leadership</li><li class="tag">Communication</li><li class="tag">Cross-functional work</li></ul></div>
+  </div>
+</section>
+
+<section id="contact" class="contact" aria-labelledby="contact-heading" data-night-range>
+  <div id="contact-night" class="contact-night" data-renderer="loading" aria-hidden="true">
+    <canvas id="contact-still"></canvas>
+    <canvas id="contact-canvas"></canvas>
+  </div>
+  <div class="contact-content" data-night-reading>
+    <h2 class="mono" id="contact-heading">Get in touch.</h2>
+    <button class="email mono" type="button" data-copy="ranjeet8022007@gmail.com" data-hint="hint">
+      <span>ranjeet8022007@gmail.com</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg>
+    </button>
+    <p class="hint mono" id="hint" role="status" aria-live="polite">click email to copy</p>
+    <div class="cta">
+      <a class="btn" href="https://www.linkedin.com/in/ranjeet-epili" rel="noopener">LinkedIn</a>
+      <a class="btn" href="https://github.com/ranjeet-e" rel="noopener">GitHub</a>
+      <a class="btn" href="https://pypi.org/project/tokencraft-gpt/" rel="noopener">PyPI</a>
+      <a class="btn" href="https://www.instagram.com/ranjeetepili">Instagram</a>
+    </div>
+    <footer class="mono contact-foot">© 2026 Ranjeet Epili</footer>
+  </div>
+  <div id="contact-meadow" class="contact-meadow" data-night-camera aria-hidden="true"></div>
+</section>
+</main>
+</div>
+
+<script>
+(function(){ 
+  // always start at the top on reload
+ if('scrollRestoration' in history) history.scrollRestoration='manual';
+ if(location.hash) history.replaceState(null,'',location.pathname+location.search);
+window.scrollTo(0,0);
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function run(term){
+    var lines=[].slice.call(term.querySelectorAll('.ln'));
+    clearTimeout(term._t);
+    lines.forEach(function(l){l.classList.remove('show')});
+    var n=0;
+    function next(){
+      if(n>=lines.length)return;
+      lines[n].classList.add('show');n++;
+      term._t=setTimeout(next,reduce?0:650);
+    }
+    next();
+  }
+  [].slice.call(document.querySelectorAll('[data-term]')).forEach(function(t){
+    var started=false;
+    t.querySelector('[data-replay]').addEventListener('click',function(){run(t)});
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(es,ob){
+        es.forEach(function(e){if(e.isIntersecting&&!started){started=true;run(t);ob.disconnect();}});
+      },{threshold:.4}).observe(t);
+    }else{run(t)}
+  });
+  [].slice.call(document.querySelectorAll('[data-copy]')).forEach(function(el){
+    el.addEventListener('click',function(){
+      var txt=el.getAttribute('data-copy'),hintId=el.getAttribute('data-hint'),old=el.textContent;
+      function done(ok){
+        if(hintId){document.getElementById(hintId).textContent=ok?'copied to clipboard':'copy failed, select it manually';}
+        else{el.textContent=ok?'copied':'failed';setTimeout(function(){el.textContent=old},1500);}
+      }
+      try{navigator.clipboard.writeText(txt).then(function(){done(true)},function(){done(false)});}catch(e){done(false)}
+    });
+  });
+  var navLinks=[].slice.call(document.querySelectorAll('nav a'));
+  if('IntersectionObserver' in window){
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){navLinks.forEach(function(a){a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id)});}
+      });
+    },{rootMargin:'-40% 0px -55% 0px'});
+    ['work','about','resume','contact'].forEach(function(id){var el=document.getElementById(id);if(el)spy.observe(el);});
+  }
+})();
+</script>
+
+<script>
+
+/* Animation renderer retrieved from https://suho.studio/ on 2026-11-07.
+   Original scene/shaders/geometry are retained from its public client bundle.
+   Portfolio integration and standalone module/scheduler adapter added here. */
+(function(){
+  'use strict';
+  const definitions=new Map(),cache=new Map(),running=new Set();
+  function register(chunk){
+    let ids=[];
+    for(const item of chunk.slice(1)){
+      if(typeof item==='number')ids.push(item);
+      else if(typeof item==='function'){
+        const group={ids,factory:item,loaded:false};
+        ids.forEach(id=>definitions.set(id,group));ids=[];
+      }
+    }
+  }
+  function requireModule(id){
+    if(cache.has(id))return cache.get(id);
+    const group=definitions.get(id);
+    if(!group)throw new Error('Missing ASCII module '+id);
+    if(!group.loaded){
+      group.loaded=true;
+      group.ids.forEach(id=>cache.set(id,{}));
+      group.factory({
+        i:requireModule,
+        s(entries,target=group.ids[0]){
+          const out=cache.get(target)||{};cache.set(target,out);
+          for(let n=0;n<entries.length;n+=3){
+            const name=entries[n],type=entries[n+1],value=entries[n+2];
+            if(type===0)out[name]=value;
+            else Object.defineProperty(out,name,{get:value,enumerable:true});
+          }
+        }
+      });
+    }
+    return cache.get(id);
+  }
+  // Replace only the site's GSAP-based shared ticker with native animation frames.
+  cache.set(52551,{
+    onNextFrame(callback){const id=requestAnimationFrame(callback);return()=>cancelAnimationFrame(id)},
+    subscribeToFrames(subscriber){
+      let request=0,previous=0,disposed=false;
+      function tick(now){
+        if(disposed)return;
+        const interval=previous?now-previous:1000/(subscriber.fps||60);
+        if(!document.hidden&&subscriber.presence()>0&&interval>=1000/(subscriber.fps||60)-.3){
+          const first=!previous;previous=now;
+          subscriber.draw({timestamp:now,deltaSeconds:Math.min(interval,1000/(subscriber.fps||60))/1000,interval,first});
+        }else if(document.hidden||subscriber.presence()<=0)previous=0;
+        if(!disposed)request=requestAnimationFrame(tick);
+      }
+      request=requestAnimationFrame(tick);
+      const stop=()=>{disposed=true;cancelAnimationFrame(request);running.delete(stop)};
+      running.add(stop);return stop;
+    }
+  });
+  // Keep the original build's module registration private to this integration.
+  (function(globalThis){
+
+(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,31888,s=>{"use strict";let e=1e3/60-12,i=1/3;s.s(["FrameBudget",0,class{ceiling;base;floor;limit;comfort;samples=[];elapsed=0;samplesInWindow=0;headroom=0;constructor(s,i,t=.75,h=s){this.base=s,this.floor=Math.min(t,s),this.ceiling=Math.max(this.floor,Math.min(s,h)),this.limit=1e3/i+e,this.comfort=1e3/i+1}reset(){this.samples.length=0,this.elapsed=0}observe(s){let e,t;if(!Number.isFinite(s)||s<=0)return!1;this.samples.push(s),this.elapsed+=s;let h=this.samples.length>=30,l=this.elapsed>=1500&&this.samples.length>=8;if(!h&&!l)return!1;let o=(t=(e=this.samples.slice().sort((s,e)=>s-e)).length>>1,e.length%2==0?(e[t-1]+e[t])/2:e[t]);this.samplesInWindow=this.samples.length;let a=this.samples.filter(s=>s>50).length/this.samples.length;return(this.samples.length=0,this.elapsed=0,o>this.limit||a>i)?(this.headroom=0,!(this.ceiling<=this.floor)&&(this.ceiling=Math.max(this.floor,this.ceiling-.25),!0)):(o<=this.comfort&&0===a&&this.ceiling<this.base&&(this.headroom+=this.samplesInWindow),!1)}recoverWhileHidden(){return!(this.headroom<120)&&!(this.ceiling>=this.base)&&(this.headroom=0,this.ceiling=Math.min(this.base,this.ceiling+.25),!0)}}])}]);
+(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,48035,33031,t=>{"use strict";let e=t=>t<1024,a=(t,e,a)=>{let i=Math.min(1,Math.max(0,(a-t)/(e-t)));return i*i*(3-2*i)};t.s(["isNightReadingViewport",0,e,"writeNightMoon",0,function(t,i,n,r,o){let s=i/n,l=s<.65,h=e(i),d=Math.min(1,Math.max(0,1-o)),u=h?a(0,1,d):Math.min(1,Math.max(0,r)),c=s*(l?.66-.14*u:.165+.09*u),f=l?.105+.045*u:.42-.205*u,M=l?.08+.035*u:.105+.035*u;if(h){let t=a(0,.28,d),e=.985*s,i=e+(s+M+.025-e)*t+.135*a(.28,.48,d);c=i+(c-i)*a(.5,1,d);let n=l?.04:.11;f=n+(f+(Math.hypot(Math.max(0,o),.02)-.02)-n)*a(.4,.5,d)}t[0]=c,t[1]=f,t[2]=M}],48035);let i=[{id:"calendula",x:.07,headY:.65,radius:.076,pigment:[.96,.4,.035],seed:4.2},{id:"aster",x:.21,headY:.67,radius:.095,pigment:[.54,.22,.92],seed:7.43},{id:"zinnia",x:.36,headY:.65,radius:.105,pigment:[.94,.29,.58],seed:13.79},{id:"rose",x:.52,headY:.77,radius:.16,pigment:[.94,.14,.25],seed:3.73},{id:"camellia",x:.67,headY:.67,radius:.105,pigment:[.94,.91,.83],seed:19.11},{id:"cornflower",x:.81,headY:.64,radius:.088,pigment:[.18,.6,.95],seed:23.57},{id:"sunflower",x:.94,headY:.65,radius:.080256,pigment:[1,.73,.12],seed:6.4}],n=2*Math.PI,r=(t,e)=>{let a=43758.5453*Math.sin(37.13*t+91.7*e+3.7);return a-Math.floor(a)-.5},o=(t,e)=>[t[0]*e,t[1]*e,t[2]*e],s=" .,:;'-_~!/\\|(){}[]<>+*oxvYtfnLCJ7?%&#@",l=" .:-=+*#%@",h="^VIilj",d=s+l+h,u=t=>M*(t?1.18:1),c=t=>p*(t?1.18:1),f=t=>t>=867&&t<1e3,M=.076,p=.080256,w=[[.34,.22],[.66,.16],[.34,.53],[.66,.47],[.34,.84],[.66,.78]],m=26,b=(t,e,a)=>{let i=Math.min(1,Math.max(0,(a-t)/(e-t)));return i*i*(3-2*i)},g=t=>{let e=43758.5453*Math.sin(127.1*t);return e-Math.floor(e)},x=t=>{let e=Math.floor(t),a=t-e,i=a*a*(3-2*a);return g(e)*(1-i)+g(e+1)*i},I=(t,e,a)=>[t[0]+(e[0]-t[0])*a,t[1]+(e[1]-t[1])*a,t[2]+(e[2]-t[2])*a],P={field:{far:[.2,.76,.98],mid:[.16,.46,.99],near:[.11,.29,1],tintLow:[.09,.31,.94],tintHigh:[.18,.72,.97],variation:.48},blood:{far:[1,.36,.45],mid:[1,.254,.353],near:[1,.25,.375],tintLow:[1,.43,.52],tintHigh:[1,.19,.3],variation:.24},violet:{far:[.851,.5,1],mid:[.754,.428,1],near:[.692,.481,1],tintLow:[.877,.549,1],tintHigh:[.678,.492,1],variation:.24}};function y(t,e=.5,a="field"){let i=P[a],n=t<.5?I(i.far,i.mid,2*t):I(i.mid,i.near,(t-.5)*2);return I(n,e<.5?i.tintLow:i.tintHigh,Math.abs(e-.5)*i.variation)}function v(t){let e=t>>>0;return()=>(e=Math.imul(e,1664525)+0x3c6ef35f>>>0)/0x100000000}t.s(["ALL_GLYPHS",0,d,"ANISO_GLYPHS",0,l,"EXTRA_FOLIAGE_GLYPHS",0,h,"FIELD_LIFT",0,.56,"FIELD_SETTLE",0,.06,"FOLIAGE_GLYPHS",0,"|!'/\\^vVYtfniIlj","MOTION_FLOWER_REVEAL_GAP",0,.003,"NIGHT_GLYPHS",0,s,"PHONE_COLOR_BOOST_SHORT_SIDE_MAX",0,480,"SKY_INK",0,[.009,.016,.032],"VERTEX_STRIDE",0,18,"buildFieldMesh",0,function(t,e=7,a){a?.interactiveFlowers?.splice(0);let s=a?.tabletFlowerDetail===!0,l=a?.viewLeft??0,h=a?.viewWidth??t,d=a?.viewAspect??t,f=d<.65,p=f||a?.flowerPlacement==="sensor"?"compact":a?.flowerLayout??"field",w="ultrawide"===p,P=s||w,L=w?"ultrawide":a?.flowerPlacement,S=L?function(t,e,a=!1,n="sensor"){if("ultrawide"===n)return i.filter(t=>"calendula"===t.id||"sunflower"===t.id).map(a=>({kind:a.id,x:t+e*a.x,headY:a.headY,radius:a.radius,colour:a.pigment}));let r=.003*e,o=u(a),s=c(a);return[{kind:"calendula",x:t-o-r,headY:.65,radius:o,colour:[.96,.34,.025]},{kind:"sunflower",x:t+e+s+r,headY:.65,radius:s,colour:[1,.72,.16]}]}(l,h,s,L):[],Y=S.find(t=>"calendula"===t.kind)?.x??l-M-.003*h,E=S.find(t=>"sunflower"===t.kind)?.x??l+h+M+.003*h,k=S.map(t=>({x:t.x,headY:t.headY,radius:t.radius})),F="rose-daisy"===p,A=a?.suppressBlueBloom===!0,_=v(71731),q=[],R=[0,0],T=0,O=0,H=1,N=[0,0],G=0,B=(t,e,a=[0,0,1],i=0)=>{q.push(...t,...R,O,T,...e,1,H,...N,G,...a,i)},V=(t,e,a,i)=>{B(t,i),B(e,i),B(a,i)},C=(t,e,a,i,n,r=1,o=m)=>{let s=[];for(let n=0;n<=o;n++){let l=n/o*Math.PI*2,h=Math.cos(l)*e,d=Math.sin(l)*a;s.push([t[0]+h*Math.cos(i)-d*Math.sin(i),t[1]+(h*Math.sin(i)+d*Math.cos(i))*r])}for(let e=0;e<o;e++){let a=.72+.28*Math.sin(e/o*Math.PI),r=t=>{let e=t/o*Math.PI*2,a=.38*Math.cos(e),n=.65*Math.sin(e);return[a*Math.cos(i)-n*Math.sin(i),a*Math.sin(i)+n*Math.cos(i),Math.sqrt(1-a*a-n*n)]};B(t,n.map(t=>Math.min(1,1.22*t))),B(s[e],n.map(t=>t*a),r(e),1),B(s[e+1],n.map(t=>t*a),r(e+1),1)}},D=(t,e)=>g(37.13*t+91.7*e+3.7)-.5,K=(t,e,a,i,s,l,h,d)=>{let u=P&&W.includes(t),{squash:c,face:f,tilt:M,openness:p}=t,w=t.shapeSeed??t.spin+17.3*t.x,m=Math.cos(f),g=Math.sin(f),x=1-.62*M,y=(t,e)=>{let a=t*m+e*g;return[a*x*m+(t-a*m),a*x*g+(e-a*g),a]},v=t.botanical?.id;if(v&&"rose"!==v&&"calendula"!==v&&"sunflower"!==v)return void function(t,e){let{centre:a,radius:i,squash:s,seed:l,rotation:h,colour:d,segments:u,turn:c,ellipse:f,triangle:M,vertex:p}=e,w=(t,e)=>{let[n,r]=c(t,e);return[a[0]+n*i,a[1]+r*i*s]},m=({angle:t,base:e,tip:a,width:i,tint:n,profile:r,bend:s=0,cup:l=.12,offset:h=[0,0],shadow:u=!1})=>{let c=Math.cos(t),f=Math.sin(t),M=[0,.1,.24,.4,.56,.7,.82,.9,.96,1],m=M.length-1,b=t=>{let u=(a-e)*(t?1.06:1),b=i*(t?"blade"===r?1.28:1.19:1),g=e+.025*!!t,x=t?o(d,.1):n,I=(t,e)=>{let a=Math.sin(t*Math.PI);return[g+u*t,s*a+e*b*("spoon"===r?a**.58*(.3+1.05*t):"blade"===r?a**.48*(1-.12*t):a**.72),l*t*t+("blade"===r?-.1:.085)*a*(1-e*e)]},P=Array.from({length:m+1},(t,e)=>Array.from({length:5},(t,a)=>{var i,n;let s,l,d,u,p,m,b,g,P,y,v,L,S;return s=I(i=M[e],n=a/4*2-1),d=I((l=Math.max(1e-4,Math.min(.9999,i)))-1e-5,n),u=I(l+1e-5,n),p=I(l,n-1e-5),m=I(l,n+1e-5),b=u.map((t,e)=>t-d[e]),g=m.map((t,e)=>t-p[e]),P=b[1]*g[2]-b[2]*g[1],y=b[2]*g[0]-b[0]*g[2],L=Math.hypot(P,y,v=b[0]*g[1]-b[1]*g[0]),S=(.46+.54*Math.sin(i*Math.PI*.65))*("blade"===r?.67+.39*Math.abs(n):1.04-.4*Math.abs(n)),{at:w(h[0]+c*s[0]-f*s[1],h[1]+(f*s[0]+c*s[1])*("blade"===r?.8:1)-.22*s[2]),normal:[(P*c-y*f)/L,(P*f+y*c)/L,v/L],ink:o(x,S),flex:Math.min(1,.7*Math.abs(n)+.3*i)}})),y=t=>p(t.at,t.ink,t.normal,t.flex);for(let t=0;t<m;t++)for(let e=0;e<4;e++){let a=P[t][e],i=P[t+1][e],n=P[t+1][e+1],r=P[t][e+1];t<m-1&&(y(a),y(i),y(n)),t>0&&(y(a),y(n),y(r))}};u&&b(!0),b(!1)},b=(t,e)=>f(a,i*t,i*t*.9,0,e,s,u);if("aster"===t){for(let[t,e]of[{count:16,base:.26,tip:1.15,width:.065},{count:11,base:.2,tip:.86,width:.06},{count:8,base:.16,tip:.57,width:.06}].entries())for(let a=0;a<e.count;a++){let i=r(l,a+23*t);m({angle:h+(a+.5*t)/e.count*n+.18*i,base:e.base,tip:e.tip*(1+.16*i),width:e.width*(1+.2*i),tint:o(d,.82+.045*t+.12*i),profile:"ray",bend:.1*i,cup:.08})}b(.24,[.32,.16,.025]),b(.185,[.67,.46,.1]);for(let t=0;t<17;t++){let e=.18*Math.sqrt((t+.5)/17),a=h+2.399963*t,i=Math.cos(a)*e,n=Math.sin(a)*e,r=w(i,n-.032),o=w(i-.029,n),s=w(i,n+.032),l=w(i+.029,n);M(r,o,s,[.83,.63,.19]),M(r,s,l,[.43,.25,.035])}return}if("camellia"===t){for(let[t,e]of[{count:6,base:.08,tip:1.13,width:.36,bend:.17},{count:5,base:.04,tip:.76,width:.31,bend:.12},{count:3,base:.02,tip:.44,width:.23,bend:.08},{count:3,base:0,tip:.24,width:.14,bend:.07}].entries())for(let a=0;a<e.count;a++){let i=r(l,a+29*t);m({angle:h+(a+.42*t)/e.count*n+.07*i,base:e.base,tip:e.tip*(1+.08*i),width:e.width,tint:o(d,.79+a%2*.13+.015*t),profile:"blade",bend:e.bend,cup:-.12+.04*t,offset:[-(.025*t),-(.025*t)],shadow:!0})}return}if("zinnia"===t){for(let[t,e]of[{count:11,base:.43,tip:1.17,width:.22},{count:9,base:.22,tip:.89,width:.21},{count:6,base:.08,tip:.61,width:.17},{count:4,base:.02,tip:.34,width:.11}].entries())for(let a=0;a<e.count;a++){let i=r(l,a+29*t);m({angle:h+(a+.53*t)/e.count*n+.2*i,base:e.base,tip:e.tip*(1+.2*i),width:e.width*(1+.18*i),tint:o(d,.81+.28*i+.025*t),profile:"spoon",bend:.22*i,cup:.17+.06*t,offset:[.012*t,-(.035*t)],shadow:!0})}b(.105,o(d,.19));for(let t=0;t<5;t++){let e=h+t/5*n;f(w(.065*Math.cos(e),.065*Math.sin(e)),.025*i,.018*i,e,[.73,.56,.2],s,u)}return}for(let[t,e]of[{count:7,reach:.64,base:.22,width:.075,fringe:.45},{count:5,reach:.38,base:.12,width:.08,fringe:.33}].entries())for(let a=0;a<e.count;a++){let i=r(l,a+31*t),s=h+(a+.5*t)/e.count*n+.13*i,u=o(d,.73+.035*t+.18*i);m({angle:s,base:e.base,tip:e.reach+.05,width:e.width,tint:u,profile:"tube",bend:.13*i,cup:.16});let c=Math.cos(s)*e.reach,f=Math.sin(s)*e.reach;for(let a=-2;a<=2;a++){let n=s+.18*a,r=Math.cos(n),l=Math.sin(n),h=e.fringe*(1-.065*Math.abs(a)+.18*i),d=.68*h,p=0===t?.045:.035,m=w(c,f),b=w(c+r*d-l*p,f+l*d+r*p),g=w(c+r*h,f+l*h),x=w(c+r*d+l*p,f+l*d-r*p);M(m,b,g,u),M(m,g,x,o(u,.48))}}b(.25,[.035,.028,.12]);for(let t=0;t<19;t++){let e=.22*Math.sqrt((t+.5)/19),a=h+2.399963*t;f(w(Math.cos(a)*e,Math.sin(a)*e),i*(.055+t%3*.009),.026*i,a+.35*Math.PI,t%2?[.23,.14,.46]:[.085,.055,.23],s,u)}}(v,{centre:e,radius:a,squash:c,seed:w,rotation:t.rotation,colour:l,segments:d,turn:y,ellipse:C,triangle:V,vertex:B});if(p<.22){C(e,a*(.52+.6*p),.32*a,.5*Math.PI,I(l,[.05,.14,.17],.44),c,d),C([e[0],e[1]-.36*a*c],.19*a,.15*a,0,l,c,d);return}C(e,.2*a,.17*a,0,I(l,h,.4),c,d);let L=Math.min(1,p+(1-b(.04,.082,a))*.42),S=a<.058?0:t.species;if(1===S){let i=I(l,"blood"===t.accent?[.07,.006,.012]:[.015,.04,.07],.86),n=u?[8,7,6,5]:[7,6,5];for(let r=0;r<n.length;r++){let o=1-r*(u?.22:.28),s=n[r];for(let n=0;n<s;n++){let h=t.rotation+n/s*Math.PI*2+r*Math.PI/s+.22*D(w,n+13*r),[u,f]=y(Math.cos(h),Math.sin(h)),M=1+.16*D(w,n+29*r),p=.62*a*o*M,m=Math.atan2(f*c,u),b=.42*a*o*M,g=.54*a*o,x=[e[0]+u*p,e[1]+f*p*c];C([x[0]+u*a*.03*o,x[1]+f*a*.03*o*c],1.08*b,1.08*g,m,i,c,d),C(x,b,g,m,l,c,d)}}C([e[0]+m*a*M*.3,e[1]+g*a*M*.3*c],.24*a*x,.21*a,f,I(l,[.02,.06,.1],.82),c,d);return}if(2===S){for(let i=0;i<21;i++){let n=Math.sqrt((i+.55)/21)*a*.94,r=2.399963*i+t.rotation,[o,s]=y(Math.cos(r),Math.sin(r)),u=1-n/(.94*a);C([e[0]+o*n,e[1]+s*n*c*.78-.12*a*c],a*(.18+.06*u),a*(.14+.05*u),r,I(l,h,.55*u),c,d)}return}let Y=a*s.reach*(.6+.4*L),E=a*s.span*(.62+.38*L),k=a*s.blade*(.72+.28*L);for(let a of u?[{count:i+4,reach:1,span:1,blade:1,offset:0},{count:Math.round((i+4)*.64),reach:.48,span:.68,blade:.82,offset:Math.PI/(i+4)}]:[{count:i,reach:1,span:1,blade:1,offset:0}])for(let i=0;i<a.count;i++){let n=t.rotation+i/a.count*Math.PI*2+a.offset+.34*D(w,i),[r,o,s]=y(Math.cos(n),Math.sin(n)),h=1+.3*D(w,i+31);C([e[0]+r*Y*a.reach*h,e[1]+o*Y*a.reach*h*c],E*a.span*h*(1-.5*M*Math.abs(s)),k*a.blade*(1+.36*D(w,i+67)),Math.atan2(o*c,r),l,c,d)}let F=a*(.16+.14*L);C([e[0]+m*a*M*.3,e[1]+g*a*M*.3*c],F*x,.82*F,f,h,c,d)},j=a?.columns??Math.max(1,Math.round(108*t)),X=a?.rows??68,$=t/j,z=1/X,U=[],W=[],J=(t,e)=>{if(!t.botanical)return function(t,e,a=.5,i="field"){let n=y(t,a,i),r=Math.max(n[0],n[1],n[2])||1;return[n[0]/r*e,n[1]/r*e,n[2]/r*e]}(t.shade,e,t.tint,t.accent);let a=t.botanical.pigment,i=Math.max(...a);return a.map(t=>t/i*e)},Q=(t,e,a,i,n=.66)=>({row:2,depth:.32,x:t,y:n+.18,stalk:.18,lean:0,crown:[t,n],spin:0===i?1.73:18.7*t,radius:e*(s?1.14:1),squash:.86,shade:.42,catchesLight:!0,rotation:0===i?.23:11.3*t,petals:0===i?16:7,tint:a,face:0===i?.61:5.1*t,tilt:0===i?.08:.16,openness:0===i?.98:.94,shapeSeed:0===i?2.41:P?3.73:void 0,species:i,accent:"field"});for(let e=0;e<7;e++){let a=e/6,i=Math.round((f?1.9*t:t)*(4.2+62*(1-a)**3.4)),n=(t+.12)/i,r=(e%2==0?-.25:.25)*n;for(let o=0;o<i;o++){let i=Math.min(1,Math.max(0,a+(_()-.5)*(.55/6))),s=(o+.5)*n-.06+r+(_()-.5)*n*.55,l=(_()-.5)*(.085-.065*i),h=_()*Math.PI*2,d=_()-.5,u=.84+.32*_(),c=t=>t,M=e=>{let a=.56+e**1.3*.94+l,i=.545+.255*e+l,n=Math.max(.02,a-i),r=d*n*.5,o=.034+e**1.8*.145*u,h=c(s+r),M=1.58*o+n*(f?.3:.36);return{depth:e,y:a,top:i,stalk:n,lean:r,radius:o,edgeRoom:Math.max(0,Math.min(h,t-h)),margin:M}},p=e=>e.margin<=Math.min(f?.46*t:e.edgeRoom,.46*t),w=M(i);if(!p(w)){let t=0,e=i;w=M(0);for(let a=0;a<8;a++){let a=(t+e)*.5,i=M(a);p(i)?(t=a,w=i):e=a}}let{depth:m,y:b,stalk:g,lean:x,radius:I}=w,P=Math.min(w.margin,.46*t),y=c(s+x);s+=Math.max(P,Math.min(t-P,y))-y;let v=.72+.26*_(),L=Math.min(1,Math.max(0,m+(_()-.5)*.36)),S=_()>.74,Y=_()*Math.PI,E=_()>.7?7:6,k=_(),F=_()*Math.PI*2,A=_()**2*.78,q=Math.min(1,_()**.62*1.12);U.push({row:e,depth:m,x:s,y:b,stalk:g,lean:x,crown:[s+x,b-g],spin:h,radius:I,squash:v,shade:L,catchesLight:S,rotation:Y,petals:E,tint:k,face:F,tilt:A,openness:q,species:0,accent:"field"})}}if(w){for(let t of[...i.filter(t=>"calendula"!==t.id&&"sunflower"!==t.id)].sort((t,e)=>Number("rose"===e.id)-Number("rose"===t.id))){let e=Q(l+h*t.x,t.radius,.5,+("rose"===t.id),t.headY);e.botanical=t,e.shapeSeed=t.seed,e.rotation="rose"===t.id?.18:-.16,e.face=.61,e.tilt=.12,e.openness=.98,e.depth=.82,W.push(e)}U.push(...W)}else if(F){let t=Math.min(.16,.16*h),e=Math.max(.078,Math.min(.105,.11*h)),a=Q(l+.5*h,t,.34,1,.77),i=Q(l+.22*h,e,.72,0,.65);W.push(a),i.crown[0]-i.radius>=l&&i.crown[0]+i.radius<=l+h&&Math.hypot(i.crown[0]-a.crown[0],i.crown[1]-a.crown[1])>=i.radius+a.radius+.55*$&&W.push(i),U.push(...W)}else if("three-flowers"===p){let t=Math.min(.16,.16*h),e=Math.max(.078,Math.min(.105,.11*h)),a=Math.max(.078,Math.min(.12,.12*h)),i=Q(l+.5*h,t,.34,1,.77),n=Q(l+.22*h,e,.72,0,.65),r=Q(l+.78*h,a,.5,2,.65),o=(t,e)=>Math.hypot(t.crown[0]-e.crown[0],t.crown[1]-e.crown[1])>=t.radius+e.radius+.55*$;W.push(i),[n,r].every(t=>t.crown[0]-t.radius>=l&&t.crown[0]+t.radius<=l+h)&&o(n,i)&&o(i,r)&&o(n,r)&&W.push(n,r),U.push(...W)}else if("compact"===p){let t=s?Math.min(.086,Math.max(.064,.1*h)):Math.min(.064,.49*h),e=Q(l+.5*h,t,.34,1),a=s?Math.min(.071,Math.max(0,Math.min(.18*h-.55*$,.32*h-e.radius-.55*$))):Math.min(.052,Math.max(0,.32*h-e.radius-.55*$)),i=Q(l+.18*h,a,.72,0),n=Q(l+.82*h,a,.5,0),r=(t,e)=>Math.abs(t.crown[0]-e.crown[0])>=t.radius+e.radius+.55*$;W.push(e),a>=.04&&[i,n].every(t=>t.crown[0]-t.radius>=l&&t.crown[0]+t.radius<=l+h)&&r(i,e)&&r(e,n)&&r(i,n)&&W.push(i,n),U.push(...W)}let Z=t=>f&&t.row<e&&t.x>=l&&t.x<=l+h&&((t.x-l)/h<.19||(t.x-l)/h>.81),tt=t=>!!L&&k.some(e=>{let a=e.headY-e.radius,i=.84+.15*e.radius,n=Math.max(a-t.crown[1],t.crown[1]-i,0),r=1.15*e.radius+t.radius,o=.45*e.radius+t.radius*t.squash;return(Math.abs(t.crown[0]-e.x)/r)**2+(n/o)**2<=1}),te=t=>F&&A&&t.row<e&&t.radius>=.034&&1>=Math.hypot((t.crown[0]-(l+.78*h))/(.18*h),(t.crown[1]-.65)/.18),ta=new Set;if(f){let e=[[.018,.17],[.83,.982]],a=2.3*$;[.16,.26,.36,.46,.56,.66,.76,.86].forEach((i,n)=>{e.forEach(([e,r],o)=>{let s=Math.max(2,Math.ceil((r-e)*t/a));for(let a=0;a<s;a++){let l=97*n+41*o+13*a,h=Math.max(e,Math.min(r,e+(a+.5)/s*(r-e)+(g(l+3.7)-.5)*($/t)*.65))*t,d=i+(g(l+11.9)-.5)*.035,u=.56+d**1.3*.94+(g(l+23.1)-.5)*.022,c={row:Math.round(6*d),depth:d,x:h,y:u,stalk:.02,lean:0,crown:[h,u],spin:g(l+37.3)*Math.PI*2,radius:1.4*$,squash:.82,shade:d,catchesLight:!1,rotation:0,petals:6,tint:0,face:0,tilt:0,openness:0,species:0,accent:"field"};U.push(c),ta.add(c)}})})}let ti=new Set(W),tn=t=>w&&!ti.has(t)&&t.radius>=.055,tr=[],to=[...W],ts=new Set;for(let t=U.length-1;t>=0;t--){let e=U[t];ti.has(e)||e.radius<.078||tn(e)||Z(e)||tt(e)||te(e)||(to.every(t=>{let a=2.3*Math.max(e.radius,t.radius);return Math.hypot((e.crown[0]-t.crown[0])/a,(e.crown[1]-t.crown[1])/(.8*a))>1})?(tr.push(e),to.push(e)):ts.add(e))}let tl=[...tr,...W],th=t=>{let e=1;for(let a of tr)a.radius<=1.35*t.radius||(e=Math.min(e,.26+.74*b(.42,1,Math.hypot((t.crown[0]-a.crown[0])/(1.65*a.radius),(t.crown[1]-a.crown[1])/(1.4*a.radius)))));return e},td=[...tl],tu=W.find(t=>1===t.species),tc=t=>td.every(e=>{let a=e===tu;if(!a&&(e.radius>2.2*t.radius||t.radius>2.2*e.radius)&&.058>Math.min(t.radius,e.radius))return!0;let i=t.radius*(a?1.41:1),n=e.radius*(a?1.19:1),r=Math.min(t.radius,e.radius)>=.058,o=(i*t.squash+n*e.squash)*(r||a?.9:.76)+z*(r||a?.28:.12);return Math.hypot((t.crown[0]-e.crown[0])/((i+n)*(r||a?1.02:.95)+$*(r||a?.55:.22)),(t.crown[1]-e.crown[1])/o)>1}),tf=v(0x135282e),tM=new Set(tl),tp=new Set,tw=new Set;for(let t of U){if(tM.has(t))continue;if(Z(t)||tt(t)||te(t)||tn(t)){ta.add(t);continue}let e=th(t);if(ts.has(t)){e>.55&&tp.add(t);continue}let a=t.row/6,i=.62*x(2.1*t.x+4.7*a)+.38*x(6.7*t.x+9.3*a+31);tf()<b(.33,.62,i)*e&&tc(t)?(tM.add(t),td.push(t)):t.depth>.3&&t.depth<.72&&e>.55?tp.add(t):t.depth<=.3&&e>.2&&tw.add(t)}let tm=Math.max(3,Math.round(.07*j)),tb=0;for(let t of tw){if(tb>=tm)break;if(t.row>=e||t.depth>.24||.72>th(t)||g(47.3*t.spin+13.1*t.x)>.22)continue;let a=Math.min(.39*t.radius,1.55*$);[...tM].every(e=>{let i=a+e.radius+.24*$;return Math.hypot((t.crown[0]-e.crown[0])/i,(t.crown[1]-e.crown[1])/(.82*i))>1})&&(t.radius=a,t.catchesLight=!1,tw.delete(t),tM.add(t),tb++)}let tg=[...tM].filter(t=>t.radius>=.058).sort((t,e)=>Number(e.radius>=.078)-Number(t.radius>=.078)||t.crown[0]-e.crown[0]),tx=t=>{t.tilt=Math.min(t.tilt,.16),t.openness=Math.max(t.openness,.94)};tg.forEach((t,e)=>{W.includes(t)||(f?t.species=e<2?1:2===e?0:(e-1)%3:t.species=e%3)});let tI=t=>{if(!t)return;let a=t=>t.crown[0]-t.radius>=l&&t.crown[0]+t.radius<=l+h;if(!a(t)||.82*t.radius<.078)return;let i=e=>Math.hypot((t.crown[0]-e.crown[0])/(t.radius+e.radius),(t.crown[1]-e.crown[1])/(t.radius+e.radius)),n=tg.filter(i=>i!==t&&i.row<e&&i.radius>=.078&&i.crown[0]<t.crown[0]&&a(i)).sort((t,e)=>i(t)-i(e))[0];if(!n||i(n)>2.2)return;let r=Math.min(n.radius,.084,.82*t.radius);r<.078||(n.radius=r,n.species=0,n.accent="violet",n.petals=16,n.tint=.72,n.shapeSeed=2.41,n.rotation=.23,n.face=.61,n.tilt=.08,n.openness=.98,n.squash=.86,n.catchesLight=!0)};if(W.length>0)W[0].accent="blood",W[1]&&(W[1].accent="violet");else if(d<1.6){let t=tg.filter(t=>t.row<e).filter(t=>t.crown[0]+t.radius>=l&&t.crown[0]-t.radius<=l+h),a=t.filter(t=>t.radius>=.078&&t.crown[0]-t.radius>=l&&t.crown[0]+t.radius<=l+h).sort((t,e)=>e.radius-t.radius||t.crown[0]-e.crown[0])[0]??t.reduce((t,e)=>!t||e.radius>t.radius?e:t,void 0);a&&(a.species=1,a.accent="blood",tx(a)),tI(a)}else{let t=tg.filter(t=>t.row<e).find(t=>1===t.species);t&&(t.accent="blood",tx(t)),tI(t)}if(f){let a,i=tg.filter(t=>t.row<e&&t.radius>=.078),n=(t,e)=>{let a=t.stalk*e;t.y-=t.stalk-a,t.stalk=a,t.crown=[t.x+t.lean,t.y-a]};for(let t of i)n(t,.84);for(let e of i)(!a||Math.abs(e.x/t-.5)<Math.abs(a.x/t-.5))&&(a=e);a&&n(a,.76)}for(let t of[...U].sort((t,e)=>t.row-e.row||t.depth-e.depth)){if(t.row>=e)continue;let{depth:i,x:n,y:r,stalk:o,lean:s,radius:l,shade:h,catchesLight:d}=t;O=i;let u=[.05+.02*i,.13+.075*i,.075+.045*i],c=[.06+.025*i,.22+.12*i,.095+.055*i],f=[.085+.025*i,.275+.12*i,.14+.065*i],M=I(u,c,.58),p=ta.has(t);if(p||tp.has(t)){R=[n,r],T=t.spin,N=[n,r],G=0;let e=p?.032+.1*i:.022+.085*i;H=e;let a=p?9:3,o=p?.045:.46,s=p?.07:.18,l=p?I(M,c,.44):M;for(let h=0;h<a;h++){let d=(h-(a-1)/2)*o+Math.sin(t.spin+h)*s,u=.0011+.003*i;V([n-u,r],[n+u,r],[n+d*e,r-e*(.74+.26*Math.cos(d))],l)}if(!p&&.44>g(53.1*t.spin+29.7*n)){let e=y(h,t.tint,t.accent).map(e=>e*(t.catchesLight?.72:.44)),a=1+Math.round(g(17.9*t.spin+5.3));for(let o=0;o<a;o++){let a=(g(71.3*t.spin+13.1*o)-.5)*4,s=.006+.019*i;C([n+a*s,r-.22*s],s,.3*s,(g(23.7*t.spin+41.3*o)-.5)*.9,e,.68)}}continue}if(tw.has(t)){R=[n,r],T=t.spin,N=[n,r],G=0;let e=[.04+.025*i,.15+.1*i,.075+.055*i],a=3+Math.round(2*g(9.7*t.spin+31.1*n)),o=.042+.24*i;for(let s=0;s<a;s++){let l=g(41.3*t.spin+17.7*s),h=o*(.34+l*l*1.7),d=9e-4+.0024*i,u=n+(s-(a-1)/2)*(.004+.012*i),c=(g(23.9*t.spin+53.1*s)-.5)*h*.62;R=[u,r],H=h;let f=.45*d;V([u-d,r],[u+d,r],[u+c-f,r-h],e),V([u+c-f,r-h],[u+d,r],[u+c+f,r-h],e),l>.72&&C([u+c,r-h],3.4*d,2.1*d,6*c,e.map(t=>1.45*t),.8)}continue}if(!tM.has(t))continue;if(a?.interactiveFlowers&&(w||l>=.055)){let e=l<.078?d?.94:.7:Math.min(.94,(.52+.3*i+.08*t.tint)*(d?1.24:.86));a.interactiveFlowers.push({id:t.botanical?.id??`field:${t.row}:${t.x}:${t.spin}`,kind:t.botanical?.id,x:t.crown[0],y:t.crown[1],radius:l,squash:t.squash,stalk:o,colour:J(t,e)})}H=o,R=[n,r],T=t.spin,N=[n+s,r-o],G=0;let x=8e-4+i**1.6*.006;for(let t=0;t<14;t++){let e=t/14,a=(t+1)/14,i=[n+s*e*e,r-o*e],l=[n+s*a*a,r-o*a];V([i[0]-x,i[1]],[i[0]+x,i[1]],[l[0]-x,l[1]],u),V([l[0]-x,l[1]],[i[0]+x,i[1]],[l[0]+x,l[1]],u)}if(l<.078){let e=J(t,d?.94:.7),a=e.map(t=>1.06*t);G=1;let i=b(.05,.072,l),n=I(e.map(t=>Math.min(1,1.5*t)),[.86,.79,.48],.82*i);l<.04&&C(N,1.04*l,.96*l,0,e,t.squash),K(t,N,l,l>.058?7:l>.042?6:5,{reach:.66,span:.56,blade:.24},a,n,m);continue}for(let t=0;t<2;t++){let e=.3+.28*t,a=0===t?-1:1,i=[n+s*e*e,r-o*e],l=[i[0]+a*o*(.24-.025*t),i[1]-o*(.075+.015*t)],h=l[0]-i[0],d=l[1]-i[1],u=Math.hypot(h,d),M=o*(.036-.003*t),p=[-d/u*M,h/u*M],w=[(i[0]+l[0])*.5,(i[1]+l[1])*.5],m=[w[0]+p[0],w[1]+p[1]],b=[w[0]-p[0],w[1]-p[1]];V(i,m,l,c),V(i,l,b,c);let g=[i[0]+.12*h,i[1]+.12*d],x=[l[0]-.16*h,l[1]-.16*d],I=[.16*p[0],.16*p[1]],P=[g[0]+I[0],g[1]+I[1]],y=[g[0]-I[0],g[1]-I[1]],v=[x[0]+I[0],x[1]+I[1]],L=[x[0]-I[0],x[1]-I[1]];V(P,y,v,f),V(y,L,v,f)}G=1;let P=Math.min(.94,(.52+.3*i+.08*t.tint)*(d?1.24:.86));K(t,N,l,t.petals,{reach:.8,span:.46,blade:.17},J(t,P),[.92,.86,.5],36)}if(L){let t=S.find(t=>"calendula"===t.kind),e=S.find(t=>"sunflower"===t.kind),i=t?.colour??[.96,.34,.025],n=e?.colour??[1,.72,.16],r=(t,e,a)=>{let i=Math.max(...t),n=.72+.04*e+a*(.24-.03*e);return t.map(t=>t/i*n)},o=t?.radius??u(s),l=[.055,.22,.105],f=[.085,.32,.15],M=[.12,.38,.18],p=w?1:h,b=w?1:d,x=(t,e,i,n)=>{w&&t&&a?.interactiveFlowers&&a.interactiveFlowers.push({id:t.kind,kind:t.kind,x:e[0],y:e[1],radius:t.radius,squash:n,stalk:i,colour:t.colour})},y=(t,e,a,i,n,r,o,s)=>{R=a,N=i,H=n,T=r,O=.92,G=0;let l=e[0]-t[0],h=e[1]-t[1],d=Math.max(1e-4,Math.hypot(l,h)),u=-h/d*o,c=l/d*o,f=[t[0]+u,t[1]+c],M=[t[0]-u,t[1]-c],p=[e[0]+u,e[1]+c],w=[e[0]-u,e[1]-c];V(f,M,p,s),V(M,w,p,s)},v=(t,e,a,i,n,r,o)=>{for(let s of[-1,1]){let l=[t,e],h=[t+s*p*a*.55,e-b*a*.12],d=[t+s*p*a,e-b*a*.03],u=[h[0],e+b*a*.1];R=i,N=n,H=r,T=o,O=.92,G=0,V(l,h,d,f),V(l,d,u,f),y(l,d,i,n,r,o,45e-5,M)}};(()=>{let e=[Y,.84],a=[Y,.65];y(e,[Y,.65+.2*o],e,a,.18999999999999995,4.2,.0022,l),v(Y,.755,.04,e,a,.18999999999999995,4.2);let n=[a[0]+.025*o,a[1]-.015*o];x(t,n,.18999999999999995,.92);let s=P?17.6:17.3*Y+4.2;(P?[{petals:18,seat:.52,length:.41,width:.135,offset:0},{petals:13,seat:.36,length:.34,width:.15,offset:Math.PI/18},{petals:9,seat:.22,length:.25,width:.16,offset:Math.PI/13}]:[{petals:15,seat:.52,length:.41,width:.135,offset:0},{petals:11,seat:.36,length:.34,width:.15,offset:Math.PI/15}]).forEach((t,a)=>{for(let l=0;l<t.petals;l++){let h=l+19*a,d=l/t.petals*Math.PI*2-Math.PI/2+t.offset+.2*D(s,h),u=[Math.cos(d),Math.sin(d)],c=[-u[1],u[0]],f=1+.24*D(s,h+31),M=o*t.width*(1+.32*D(s,h+67)),p=o*t.seat*f,b=D(s,h+83)*M*.36,g=[n[0]+u[0]*p+c[0]*b,n[1]+(u[1]*p+c[1]*b)*.92],x=Math.min(1,Math.max(0,.5+D(s,h+109))),P=w?r(i,a,x):0===a?I([.84,.2,.014],[1,.46,.045],x):I([.94,.32,.018],[1,.65,.09],x);R=e,N=n,H=.18999999999999995,T=4.2+.14*D(s,h+137),O=.94,G=1,C(g,o*t.length*f,M,Math.atan2(.92*u[1],u[0]),P,.92,m)}});let h=[n[0]-.018*o,n[1]+.012*o];R=e,N=n,H=.18999999999999995,T=4.2,O=.94,G=1,C(h,.22*o,.19*o,.08,[.42,.105,.012],.92,m),C([h[0]+.018*o,h[1]-.012*o],.145*o,.125*o,-.06,[.82,.34,.035],.92,m);let d=[[1,.65,.12],[.58,.16,.012],[.9,.41,.045]];for(let t=0;t<12;t++){let e=2.399963*t+4.2,a=Math.sqrt((t+.5)/12)*o*.12,i=o*(.012+.01*g(13.7*t+2.1)),n=h[0]+Math.cos(e)*a,r=h[1]+Math.sin(e)*a*.92,s=[n-i,r],l=[n,r-.62*i],u=[n+i,r],c=[n,r+.62*i];V(s,l,u,d[t%d.length]),V(s,u,c,d[(t+1)%d.length])}})(),(()=>{let t=e?.radius??c(s),a=[E,.84],i=[E+.12*t,.65],o=.84-i[1];y(a,[i[0],i[1]+.23*t],a,i,o,6.1,.0022,l),v(E,.755,.036,a,i,o,6.1);let h=[i[0]+.025*t,i[1]-.018*t];x(e,h,o,.94);let d=P?6.1+19.6:17.3*E+6.1;(P?[{petals:24,seat:.51,length:.42,width:.093,offset:0},{petals:20,seat:.385,length:.33,width:.12,offset:Math.PI/24},{petals:16,seat:.255,length:.225,width:.145,offset:Math.PI/20},{petals:12,seat:.17,length:.18,width:.15,offset:Math.PI/16}]:[{petals:21,seat:.51,length:.42,width:.093,offset:0},{petals:18,seat:.385,length:.33,width:.12,offset:Math.PI/21},{petals:14,seat:.255,length:.225,width:.145,offset:Math.PI/18}]).forEach((e,i)=>{for(let s=0;s<e.petals;s++){let l=s+29*i,u=s/e.petals*Math.PI*2-Math.PI/2+e.offset+.22*D(d,l),c=[Math.cos(u),Math.sin(u)],f=[-c[1],c[0]],M=1+.2*D(d,l+37),p=t*e.width*(1+.28*D(d,l+71)),b=t*e.seat*M,g=D(d,l+97)*p*.42,x=[h[0]+c[0]*b+f[0]*g,h[1]+(c[1]*b+f[1]*g)*.92],P=Math.min(1,Math.max(0,.5+D(d,l+131))),y=w?r(n,i,P):0===i?I([.83,.34,.025],[1,.69,.12],P):1===i?I([.94,.47,.035],[1,.78,.2],P):I([1,.62,.08],[1,.87,.36],P);R=a,N=h,H=o,T=6.1+.16*D(d,l+163),O=.94,G=1,C(x,t*e.length*M,p,Math.atan2(.92*c[1],c[0]),y,.92,m)}});let u=[h[0]-.018*t,h[1]+.014*t];R=a,N=h,H=o,T=6.1,O=.94,G=1,C(u,.245*t,.225*t,.05,[.22,.07,.012],.92),C([u[0]+.008*t,u[1]-.006*t],.19*t,.175*t,-.08,[.42,.155,.025],.92),C([u[0]-.006*t,u[1]+.004*t],.137*t,.128*t,.04,[.24,.075,.012],.92);let f=[[.72,.31,.045],[.13,.038,.006],[.48,.17,.022],[.9,.48,.075]];for(let e=0;e<38;e++){let a=2.399963*e+1.8909999999999998+.1*D(d,e+211),i=Math.sqrt((e+.5)/38)*t*.125,n=t*(.022+.012*g(13.7*e+8.4)),r=u[0]+Math.cos(a)*i,o=u[1]+Math.sin(a)*i*.9,s=[Math.cos(a),Math.sin(a)],l=[-s[1],s[0]],h=[r-s[0]*n,o-s[1]*n],c=[r+l[0]*n*.52,o+l[1]*n*.52],M=[r+s[0]*n,o+s[1]*n],p=[r-l[0]*n*.52,o-l[1]*n*.52];V(h,c,M,f[e%f.length]),V(h,M,p,f[(e+1)%4])}})()}return new Float32Array(q)},"getMotionFlowerRadius",0,u,"getMotionSunflowerRadius",0,c,"getNightFlowerLayout",0,function(t,e){let a=t/e;return t<=425||a<.65?"compact":t>=1440&&a>=2.1?"ultrawide":f(t)?"rose-daisy":t>=1e3&&t<=1200?"three-flowers":"field"},"isBlueBloomSuppressedViewport",0,t=>f(t),"isPhoneColorViewport",0,(t,e)=>480>=Math.min(t,e)&&1e3>=Math.max(t,e),"isTabletFlowerViewport",0,t=>t>=768&&t<=1200,"makeGlyphAtlas",0,function(){let t=document.createElement("canvas");t.width=20*d.length,t.height=32;let e=t.getContext("2d",{willReadFrequently:!0});if(!e)throw Error("ASCII glyph canvas unavailable");e.font="500 27px monospace",e.textBaseline="middle",e.textAlign="center",e.fillStyle="white";for(let t=0;t<d.length;t++)e.fillText(d[t],20*t+10,16);let a=e.getImageData(0,0,t.width,t.height).data,i=new Float32Array(6*d.length);for(let e=0;e<d.length;e++)for(let n=0;n<6;n++){let[r,o]=w[n],s=0,l=0;for(let i=-4;i<=4;i++)for(let n=-4;n<=4;n++){if(n*n+i*i>16)continue;let h=Math.floor(20*e+20*r+n);s+=a[(Math.floor(32*o+i)*t.width+h)*4+3]/255,l++}i[6*e+n]=s/l}for(let t=0;t<6;t++){let e=.001;for(let a=0;a<d.length;a++)e=Math.max(e,i[6*a+t]);for(let a=0;a<d.length;a++)i[6*a+t]/=e}let n=new Float32Array(8*d.length);for(let t=0;t<d.length;t++)for(let e=0;e<6;e++)n[8*t+e]=i[6*t+e];return{canvas:t,shapes:n}},"nightRandom",0,v],33031)}]);
+(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,20348,e=>{"use strict";var t=e.i(52551),a=e.i(31888),o=e.i(48035);let i=e=>Math.min(1,Math.max(0,e)),s=e=>null!==e&&Number.isFinite(e);class r{options;state;generation;disposed;attached;disabled;attempted;probe;permissionTask;stopPermissionObservation;constructor(e){this.options=e,this.state=null,this.generation=0,this.disposed=!1,this.attached=!1,this.disabled=!1,this.attempted=!1,this.probe=null,this.permissionTask=null,this.stopPermissionObservation=null,this.onVisibility=()=>{this.options.visibility.hidden?this.clearProbe():"function"!=typeof this.options.permissionAPI?.requestPermission&&("idle"===this.state||"blocked"===this.state||"denied"===this.state||"error"===this.state)?this.listen(!0):this.armProbe()},this.onOrientation=e=>{!this.disposed&&this.attached&&!this.options.visibility.hidden&&(s(e.beta)&&s(e.gamma)||s(e.alpha))&&(this.clearProbe(),this.setState("active"),this.options.onSample(e))},this.setState(e.eligible?e.reducedMotion?"reduced-motion":e.secure?e.permissionAPI?"function"==typeof e.permissionAPI.requestPermission?"permission-required":"idle":"unsupported":"insecure":"ineligible")}setState(e){this.state!==e&&(this.state=e,this.options.onState(e))}clearProbe(){null!==this.probe&&(clearTimeout(this.probe),this.probe=null)}armProbe(){this.clearProbe(),this.attempted&&!this.options.visibility.hidden&&"listening"===this.state&&(this.probe=setTimeout(()=>{this.probe=null,this.options.visibility.hidden||"listening"!==this.state||this.setState("blocked")},1800))}onVisibility;onOrientation;detach(){this.clearProbe(),this.attached&&(this.options.target.removeEventListener("deviceorientation",this.onOrientation),this.options.visibility.removeEventListener("visibilitychange",this.onVisibility),this.attached=!1)}attach(){this.attached||(this.options.target.addEventListener("deviceorientation",this.onOrientation,{passive:!0}),this.options.visibility.addEventListener("visibilitychange",this.onVisibility),this.attached=!0)}listen(e=!1){"active"!==this.state&&(e&&this.detach(),this.attach(),this.attempted&&this.setState("listening"),this.armProbe())}observePermission(){if(this.stopPermissionObservation||this.disposed||this.disabled)return;let e=!1;this.stopPermissionObservation=function(e,t){let a=!1,o=!1,i=[],s=()=>{if(a)return;let e=i.every(e=>"granted"===e.state),s=e&&!o;o=e,s&&t()};if(e&&"function"==typeof e.query){let t=t=>{try{return e.query({name:t})}catch(e){return Promise.reject(e)}};Promise.all([t("accelerometer"),t("gyroscope")]).then(e=>{if(!a){for(let t of i=e)t.addEventListener("change",s);s()}},()=>{})}return()=>{for(let e of(a=!0,i))e.removeEventListener("change",s);i=[]}}(this.options.permissions,()=>{this.disposed||this.disabled||!this.attached||(e&&"active"===this.state&&this.setState(this.attempted?"listening":"function"==typeof this.options.permissionAPI?.requestPermission?"permission-required":"idle"),e=!0,this.listen(!0))})}watch(){let e=this.options;this.disposed||this.disabled||this.attached||!e.eligible||e.reducedMotion||!e.secure||!e.permissionAPI||(this.attach(),this.observePermission())}enable(){let e=this.options;if(this.disposed||!e.eligible||e.reducedMotion)return Promise.resolve();if(!e.secure)return this.setState("insecure"),Promise.resolve();let t=e.permissionAPI;if(!t)return this.setState("unsupported"),Promise.resolve();if(this.disabled=!1,this.attempted=!0,this.permissionTask)return this.permissionTask;if(this.attached&&("listening"===this.state||"active"===this.state))return Promise.resolve();this.clearProbe();let a=++this.generation;if("function"!=typeof t.requestPermission)return this.listen(this.attached),this.observePermission(),Promise.resolve();this.attach(),this.setState("requesting");let o=this.requestPermission(t,a);return this.permissionTask=o,this.observePermission(),o.then(()=>{this.permissionTask===o&&(this.permissionTask=null)}),o}async requestPermission(e,t){try{let a=await e.requestPermission?.();if(this.disposed||t!==this.generation)return;"granted"===a?this.listen("listening"!==this.state):"active"!==this.state&&this.setState("denied"===a?"denied":"error")}catch{this.disposed||t!==this.generation||"active"===this.state||this.setState("error")}}disable(){this.disposed||(this.disabled=!0,this.generation++,this.permissionTask=null,this.stopPermissionObservation?.(),this.stopPermissionObservation=null,this.detach(),this.options.eligible&&!this.options.reducedMotion&&this.setState("idle"))}destroy(){this.disposed||(this.disposed=!0,this.generation++,this.permissionTask=null,this.stopPermissionObservation?.(),this.stopPermissionObservation=null,this.detach())}}var n=e.i(33031);let l=[...n.FOLIAGE_GLYPHS].filter(e=>n.NIGHT_GLYPHS.includes(e)).map(e=>`g == ${n.NIGHT_GLYPHS.indexOf(e)}`).join(" || "),u=n.NIGHT_GLYPHS.length+n.ANISO_GLYPHS.length,c=[...".,:;'-_~"].map(e=>`g == ${n.NIGHT_GLYPHS.indexOf(e)}`).join(" || "),h=`#version 300 es
+precision highp float;
+in vec2 aPosition;
+out vec2 vUv;
+void main() { vUv = aPosition * .5 + .5; gl_Position = vec4(aPosition, 0., 1.); }
+`,d=`#version 300 es
+precision highp float;
+in vec2 vUv;
+uniform float uAspect;
+uniform float uTime;
+uniform float uHorizon;
+uniform float uStir;
+uniform float uReadingSpace;
+uniform vec3 uSky;
+uniform vec3 uMoon;
+out vec4 outColor;
+float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+// Ruido de valor com interpolacao suave. Senoides cruzadas, que era o que
+// havia aqui, produzem BANDAS — e banda numa superficie esferica le como
+// listra de tecido, nao como cratera.
+float vnoise(vec2 p) {
+  vec2 i = floor(p), f = fract(p);
+  f = f * f * (3. - 2. * f);
+  return mix(mix(hash(i), hash(i + vec2(1., 0.)), f.x),
+             mix(hash(i + vec2(0., 1.)), hash(i + vec2(1., 1.)), f.x), f.y);
+}
+float fbm(vec2 p) {
+  return vnoise(p) * .55 + vnoise(p * 2.1 + 7.3) * .3 + vnoise(p * 4.7 + 19.) * .15;
+}
+void main() {
+  vec2 p = vec2(vUv.x * uAspect, 1. - vUv.y);
+  vec3 colour = uSky;
+  // A \xe1gua existe s\xf3 no retrato e entra com a c\xe2mera. A sobreposi\xe7\xe3o de tr\xeas
+  // ondas direcionais move a linha da margem e um brilho quase impercept\xedvel;
+  // o interior permanece pr\xf3ximo do azul-noite para n\xe3o competir com as flores.
+  if (uAspect < 0.65) {
+    float reveal = smoothstep(.38, .9, uHorizon);
+    float shore = mix(1.035, .9, smoothstep(.34, .96, uHorizon));
+    shore += sin(p.x / max(uAspect, .001) * 8. + uTime * .16) * .004;
+    shore += sin(p.x / max(uAspect, .001) * 15. - uTime * .11) * .0015;
+    float waterMask = smoothstep(shore - .008, shore + .014, p.y) * reveal;
+    if (waterMask > .001) {
+      vec2 waterUv = vec2(
+        p.x / max(uAspect, .001),
+        (p.y - shore) / max(1. - shore, .001)
+      );
+      float gust = clamp(uStir, 0., 1.);
+      float time = uTime * (.72 + gust * .48);
+      float phaseA = dot(waterUv, vec2(12., 7.)) - time;
+      float phaseB = dot(waterUv, vec2(-7., 15.)) - time * .73 + 1.7;
+      float phaseC = dot(waterUv, vec2(21., -9.)) - time * 1.16 + 3.1;
+      float waveA = sin(phaseA);
+      float waveB = sin(phaseB);
+      float waveC = sin(phaseC);
+      float swell = (waveA * .54 + waveB * .29 + waveC * .17)
+        * (1. + gust * .24);
+      vec2 slope = vec2(
+        .54 * 12. * cos(phaseA) - .29 * 7. * cos(phaseB)
+          + .17 * 21. * cos(phaseC),
+        .54 * 7. * cos(phaseA) + .29 * 15. * cos(phaseB)
+          - .17 * 9. * cos(phaseC)
+      ) * (1. + gust * .24);
+      vec3 normal = normalize(vec3(-slope * .02, 1.));
+      vec3 light = normalize(vec3(
+        (uMoon.x - p.x) * 1.1,
+        (uMoon.y - p.y) * .45,
+        .95
+      ));
+      vec3 halfVector = normalize(light + vec3(0., 0., 1.));
+      float crest = .5 + .5 * swell;
+      float glint = pow(max(dot(normal, halfVector), 0.), 28.);
+      float depth = smoothstep(shore, 1., p.y);
+      float movement = .72 + depth * .14 + crest * .11;
+      vec3 water = uSky + vec3(.02, .04, .055) * movement;
+      float waterline = 1. - smoothstep(.002, .018, abs(p.y - shore));
+      water += vec3(.003, .006, .008) * waterline;
+      water += vec3(.004, .008, .01) * glint;
+      colour = mix(uSky, water, waterMask);
+      outColor = vec4(colour, 1.);
+      return;
+    }
+  }
+  vec2 moon = p - uMoon.xy;
+  float d = length(moon);
+  float disc = 1. - smoothstep(uMoon.z - .001, uMoon.z + .001, d);
+
+  // Luz obl\xedqua sobre uma esfera: o terminador e os mares t\xeam tons distintos.
+  // S\xf3 o disco avalia relevo; o resto do c\xe9u n\xe3o paga os c\xe1lculos da superf\xedcie.
+  if (disc > 0.) {
+    vec2 sphere = moon / max(uMoon.z, .0001);
+    float z = sqrt(max(0., 1. - dot(sphere, sphere)));
+    vec3 normal = normalize(vec3(sphere, z));
+    vec2 face = sphere / (z + .85);
+    float terrain = fbm(face * 3.1 + vec2(11., 7.));
+    float highland = smoothstep(.35, .63, terrain);
+    float albedo = mix(.3, .88, highland);
+    albedo += (fbm(face * 12. + 41.) - .5) * .12;
+    // Crateras largas, com bacia escura e borda iluminada de um \xfanico lado.
+    // O relevo \xe9 ilustrado; sua escala foi escolhida para sobreviver \xe0 grade.
+    for (int i = 0; i < 7; i++) {
+      float fi = float(i);
+      vec2 centre = vec2(hash(vec2(fi, 21.)), hash(vec2(fi, 37.))) * 1.28 - .64;
+      float radius = .075 + .09 * hash(vec2(fi, 8.));
+      vec2 q = (face - centre) / radius;
+      float r = length(q);
+      float basin = 1. - smoothstep(.48, .9, r);
+      float rim = exp(-pow((r - .94) * 7., 2.));
+      float facing = dot(q / max(r, .01), normalize(vec2(-.7, -.45)));
+      albedo += rim * (.09 + .16 * facing) - basin * .16;
+    }
+    float sunlight = dot(normal, normalize(vec3(-.63, -.32, .78)));
+    float terminator = smoothstep(-.06, .12, sunlight);
+    float illumination = .085 + .915 * terminator * pow(max(sunlight, 0.), .65);
+    vec3 lunar = mix(vec3(.48, .57, .72), vec3(1., .97, .87), highland)
+      * clamp(albedo, .12, 1.) * illumination;
+    colour = mix(colour, lunar, disc);
+  }
+  // A LUA NAO PISCA; A ATMOSFERA EM VOLTA DELA RESPIRA.
+  //
+  // Duas quedas exponenciais resolvem escalas diferentes sem um passe de
+  // bloom: a aureola interna imprime a borda luminosa e o halo largo deixa a
+  // luz ocupar o ceu. O ruido e muito lento e modula apenas a atmosfera, nao
+  // o disco. Assim a lua continua sendo um corpo estavel visto atraves de uma
+  // camada de ar que muda quase imperceptivelmente.
+  float shell = max(0., d - uMoon.z);
+  float veil = .88 + .12 * vnoise(
+    p * vec2(4.8, 6.2) + vec2(uTime * .007, -uTime * .004)
+  );
+  float aureole = exp(-shell * 42.) * .17;
+  float atmosphere = exp(-shell * 10.5) * .052;
+  float halo = (aureole + atmosphere) * veil * (1. - disc);
+  colour += mix(vec3(.42, .57, .9), vec3(.7, .82, 1.), exp(-shell * 28.))
+    * halo;
+  // A clareira pertence \xe0 distribui\xe7\xe3o das estrelas, n\xe3o a uma camada opaca.
+  // No mobile, nascem menos estrelas perto do formul\xe1rio; quando o campo
+  // entra, a mesma distribui\xe7\xe3o retorna. A lua conserva disco e luminosidade.
+  vec2 readingExtent = mix(vec2(.42 * uAspect, .38),
+    vec2(.48 * uAspect, .55), uReadingSpace);
+  vec2 hushed = (p - vec2(uAspect * .5, mix(.5, .42, uReadingSpace)))
+    / readingExtent;
+  // No estreito, a clareira permanece durante a passagem do bot\xe3o e links;
+  // s\xf3 abre o c\xe9u inteiro quando o formul\xe1rio j\xe1 est\xe1 saindo do quadro.
+  float readingPhase = mix(1. - uHorizon,
+    1. - smoothstep(.95, 1., uHorizon), uReadingSpace);
+  float reading = readingPhase * exp(-dot(hushed, hushed) * 1.6);
+  float hush = 1. - .74 * reading;
+
+  float ground = mix(.97, .43, uHorizon);
+  // A noite deixa de se apagar numa faixa curta quando as flores entram.
+  // Uma queda mais longa preserva o c\xe9u entre as copas e suaviza o encontro.
+  float aboveGround = 1. - smoothstep(ground - .02, ground + .10, p.y);
+  // Duas escalas espaciais, mas tres personalidades: poeira estelar, estrelas
+  // medias e poucas ancoras. Classificar dentro dos dois lacos conserva o
+  // custo e evita criar um terceiro campo ou outro draw call.
+  for (int layer = 0; layer < 2; layer++) {
+    float fl = float(layer);
+    float spacing = mix(.046, .135, fl);
+    vec2 sky = p + vec2(fl * .037, uHorizon * mix(.025, .05, fl));
+    vec2 grid = sky / spacing;
+    vec2 cell = floor(grid);
+    float seed = hash(cell + fl * 31.);
+    vec2 star = (cell + vec2(.24 + .52 * hash(cell + 7.), .24 + .52 * hash(cell + 19.))) * spacing;
+    vec2 delta = sky - star;
+    float mag = pow(hash(cell + 11.), 2.);
+    float family = hash(cell + fl * 47. + 83.);
+    float medium = smoothstep(.58, .88, family);
+    float anchor = fl * step(.9, family);
+    float size = mix(mix(.0036, .0082, mag), mix(.0105, .0215, mag), fl)
+      * mix(1., 1.55, anchor);
+    // Duas escalas de densidade criam constelacoes soltas e vazios. O hash
+    // ainda decide a estrela individual; o ruido decide apenas onde o ceu se
+    // permite ficar mais cheio.
+    float clump = vnoise(sky * 3.1 + 3.) * .68
+      + vnoise(sky * 7.7 + 17.) * .32;
+    float threshold = mix(.61 + .17 * clump, .68 + .08 * clump, fl);
+    float present = step(threshold + uReadingSpace * reading * .38, seed);
+    float core = 1. - smoothstep(size * .25, size, length(delta));
+    // Apenas as estrelas mais fortes ganham uma cruz curta de difra\xe7\xe3o,
+    // desenhada antes da impress\xe3o ASCII, nunca sobreposta em pixels.
+    vec2 axis = abs(delta);
+    float crossLight = exp(-min(axis.x, axis.y) / (size * .17))
+      * exp(-max(axis.x, axis.y) / (size * .9));
+    core += crossLight * fl * smoothstep(.48, .92, mag)
+      * mix(.2, .62, anchor);
+    float phase = seed * 61.;
+    // Quanto mais perto do horizonte, mais ar a luz atravessa. As pequenas
+    // quase nao oscilam; as medias e ancoras deixam a noite acontecer sem que
+    // o campo inteiro ferva na mesma frequencia.
+    float lowSky = smoothstep(.18, .92, p.y / max(ground, .001));
+    float shimmer = mix(.018, .075, lowSky) * mix(.72, 1.35, medium);
+    float twinkle = 1. + shimmer * sin(uTime * (.42 + seed * .82) + phase)
+      + shimmer * .42 * sin(uTime * 1.61 + phase * 2.3);
+    float heat = hash(cell + 51.);
+    vec3 temperature = mix(vec3(1., .83, .67), vec3(.88, .93, 1.),
+      smoothstep(.08, .34, heat));
+    temperature = mix(temperature, vec3(.58, .75, 1.),
+      smoothstep(.7, .94, heat));
+    float moonGlare = smoothstep(uMoon.z * 1.1, uMoon.z * 1.9, d);
+    colour += temperature * core * present * twinkle * mix(.66, 1.5, fl)
+      * mix(.62, 1.2, mag) * mix(.88, 1.16, anchor)
+      * aboveGround * hush * moonGlare * (1. - disc);
+  }
+  // Poeira estelar irregular e muito discreta, revelada quando o formul\xe1rio
+  // sai. A quantiza\xe7\xe3o usa pontilhado est\xe1vel para n\xe3o imprimir faixas s\xf3lidas.
+  vec2 dustUv = vec2(p.x * 1.15 - p.y * .4, p.y);
+  float bandDistance = abs(p.y - (.10 + p.x / max(uAspect, .1) * .23));
+  float dust = exp(-bandDistance * bandDistance * 95.)
+    * smoothstep(.42, .74, fbm(dustUv * 5. + vec2(uTime * .006, 9.)));
+  colour += vec3(.055, .073, .115) * dust * aboveGround
+    * mix(.18, 1., uHorizon) * hush * (1. - disc);
+  // DUAS TRILHAS DE EVENTOS, NUNCA UM RELOGIO VISIVEL.
+  //
+  // Periodos diferentes, saltos por era e parametros sorteados aproximam um
+  // processo de chegadas sem estado na CPU. Uma trilha e mais frequente; a
+  // segunda e rara e permite duetos ocasionais, mas nunca mais de duas caudas.
+  for (int track = 0; track < 2; track++) {
+    float ft = float(track);
+    float period = mix(11.3, 18.7, ft);
+    float era = floor(uTime / period);
+    float eventSeed = hash(vec2(era + ft * 71., 9. + ft));
+    float enabled = step(eventSeed, mix(.84, .48, ft));
+    float duration = mix(.72, 1.42, hash(vec2(era, 27. + ft)));
+    float start = 1.1 + hash(vec2(era + ft * 13., 19.))
+      * max(1., period - duration - 2.2);
+    float since = uTime - era * period - start;
+    float life = clamp(since / duration, 0., 1.);
+    float reverse = step(.5, hash(vec2(era, 41. + ft)));
+    float direction = mix(1., -1., reverse);
+    float travel = mix(.3, .55, hash(vec2(era, 53. + ft)));
+    vec2 from = vec2(
+      mix(.06 + hash(vec2(era, 1. + ft)) * uAspect * .4,
+          uAspect * .94 - hash(vec2(era, 1. + ft)) * uAspect * .4,
+          reverse),
+      .035 + hash(vec2(era, 2. + ft)) * .24
+    );
+    vec2 course = vec2(direction * travel,
+      mix(.18, .34, hash(vec2(era, 61. + ft))));
+    vec2 pa = p - from;
+    float projection = dot(pa, course) / dot(course, course);
+    float along = clamp(projection, 0., 1.);
+    float gap = length(pa - course * along);
+    float tail = mix(.18, .38, hash(vec2(era, 73. + ft)));
+    float tailStart = max(0., life - tail);
+    float segment = step(tailStart, projection) * step(projection, life);
+    float headLight = smoothstep(tailStart, life, projection);
+    float fade = smoothstep(0., .08, life) * (1. - smoothstep(.8, 1., life));
+    float streak = exp(-gap * mix(390., 610., ft)) * segment
+      * mix(.18, 1., headLight) * fade * step(0., since)
+      * step(since, duration) * enabled * hush * aboveGround;
+    vec3 meteorColour = mix(vec3(.72, .86, 1.), vec3(1., .91, .76),
+      hash(vec2(era, 89. + ft)) * .28);
+    colour += meteorColour * streak * mix(1.05, .72, ft) * (1. - disc);
+  }
+
+
+  // OS VAGA-LUMES SAO ROSA, E NAO AMBAR.
+  //
+  // Cinco, lentos, atravessando o campo por tras das flores — o passe do ceu
+  // desenha antes da malha, entao eles ficam entre os caules. Cada um acende
+  // uma ou duas celulas de cada vez: e uma troca de caractere, e nao um
+  // brilho, que e o que faz o quadro parecer habitado.
+  //
+  // Eles ja foram ambar e ja foram magenta. Os dois se anunciavam como uma
+  // segunda materia — cor sozinha num quadro de uma familia so vira assunto
+  // proprio. Em ciano claro eles continuam sendo o que precisam ser: um ponto
+  // que se move enquanto o resto oscila no lugar.
+  float lit = smoothstep(.18, .62, uHorizon);
+  for (int i = 0; i < 5; i++) {
+    float fi = float(i);
+    float drift = uTime * (.041 + fi * .0075) + fi * 2.37;
+    vec2 fly = vec2(
+      fract(drift) * (uAspect + .34) - .17,
+      mix(.63, 1.01, hash(vec2(fi, 3.1))) + sin(uTime * .63 + fi * 1.7) * .017);
+    float pulse = pow(.5 + .5 * sin(uTime * 1.55 + fi * 1.93), 3.);
+    colour += vec3(.68, .95, 1.) * (1. - smoothstep(0., .0135, length(p - fly))) * pulse * lit;
+  }
+  outColor = vec4(colour, 1.);
+}
+`,m=`#version 300 es
+precision highp float;
+in vec2 aPosition;
+in vec2 aRoot;
+in float aDepth;
+in float aPhase;
+in vec3 aColour;
+// altura, centro da copa em xy, m\xe1scara da copa
+in vec4 aCrown;
+// normal aproximada, flexibilidade da borda
+in vec4 aSurface;
+uniform float uAspect;
+uniform float uViewLeft;
+uniform float uTime;
+uniform float uLift;
+uniform vec2 uMoonPosition;
+uniform float uStir;
+uniform float uGust;
+uniform vec2 uPointer;
+uniform vec3 uSky;
+out vec3 vColour;
+float windHash(float x) { return fract(sin(x * 127.1) * 43758.5453); }
+float windHash2(vec2 p) {
+  return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
+}
+float windNoise(float x) {
+  float i = floor(x), f = fract(x);
+  f = f * f * (3. - 2. * f);
+  return mix(windHash(i), windHash(i + 1.), f);
+}
+float windNoise2(vec2 p) {
+  vec2 i = floor(p), f = fract(p);
+  f = f * f * (3. - 2. * f);
+  return mix(mix(windHash2(i), windHash2(i + vec2(1., 0.)), f.x),
+    mix(windHash2(i + vec2(0., 1.)), windHash2(i + vec2(1.)), f.x), f.y);
+}
+// O VENTO MUDA DE FOR\xc7A E DE LADO SEM NUNCA PARAR.
+//
+// A frequ\xeancia espacial n\xe3o depende da planta: todas recebem o mesmo ar. O
+// campo 2D \xe9 arrastado devagar sobre as ra\xedzes, ent\xe3o a rajada ATRAVESSA o
+// quadro em vez de acender nele.
+//
+// A vers\xe3o anterior multiplicava a amplitude por dois envelopes lentos — uma
+// calmaria de 0,24 a 1 e uma dire\xe7\xe3o de -0,4 a 1. Multiplicados, os dois
+// davam um quarto da energia m\xe9dia de antes, e a dire\xe7\xe3o cruzava o zero: o
+// campo congelava por segundos e depois voltava ao contr\xe1rio. Era isso que
+// tinha comido a fluidez.
+//
+// A corre\xe7\xe3o \xe9 gramatical: for\xe7a \xe9 um FATOR, dire\xe7\xe3o \xe9 uma PARCELA. A
+// calmaria continua existindo, mas dentro de uma faixa que nunca desliga o
+// vento; e o lado para onde o campo pende entra somado, como uma brisa de
+// fundo que gira ao longo do minuto. Nenhum dos dois pode zerar o outro.
+float windAt(float time, vec2 root) {
+  vec2 airUv = root * vec2(1.3, .74) + vec2(-time * .085, time * .022);
+  float air = windNoise2(airUv + vec2(7., 3.));
+  float calm = .72 + .46 * smoothstep(.22, .78, windNoise(time * .058 + 11.));
+  float front = time * .46 - root.x * 1.58 - root.y * .62 + (air - .5) * 1.35;
+  float gust = smoothstep(.3, .82, windNoise(front * .34 + 4.));
+  float body = .072 + .062 * sin(front * 1.28);
+  float drift = .022 * sin(time * .071 + 1.2) + .012 * sin(time * .031);
+  return calm * (gust * body + .017 * sin(front * .6 + 2.)) + drift
+    + .009 * (air - .5);
+}
+vec2 rotatePlane(vec2 p, float angle) {
+  float c = cos(angle), s = sin(angle);
+  return vec2(c * p.x - s * p.y, s * p.x + c * p.y);
+}
+void main() {
+  float height = aCrown.x;
+  float depth = clamp(aDepth, 0., 1.);
+  float plantSeed = windHash(aRoot.x * 91. + aRoot.y * 47. + aPhase);
+  float individuality = mix(.72, 1.2, plantSeed);
+  float portrait = 1. - smoothstep(.38, .72, uAspect);
+  float farField = 1. - smoothstep(.08, .38, depth);
+  float reach = mix(.42, 1.34, depth) * individuality
+    * mix(1., .82, portrait) * (1. + .62 * farField);
+  float lag = mix(.05, .42, depth) * mix(.82, 1.18, 1. - plantSeed);
+  float wind = windAt(uTime - lag, aRoot);
+  float headWind = windAt(uTime - lag - .32, aRoot);
+  float local = exp(-length(aRoot - uPointer) * 8.) * .055;
+  float scrollWind = uStir * .055;
+  float clickWind = uGust * .09;
+  float amount = (wind + scrollWind + local + clickWind) * reach;
+
+  // Detalhe independente, reduzido ao longe. A copa demora a orientar-se,
+  // mas seu piv\xf4 coincide sempre com a extremidade do caule.
+  // O detalhe cresce com a rajada, mas tem PISO: uma folha parada dentro de
+  // uma calmaria \xe9 um adere\xe7o, e n\xe3o uma planta. O que a rajada faz \xe9 somar
+  // energia ao que j\xe1 se move sozinho.
+  float gustEnergy = max(smoothstep(.025, .105, abs(wind)), uGust);
+  float detail = sin(uTime * mix(1.28, 1.82, plantSeed) + aPhase)
+    * mix(.0044, .009, gustEnergy) * depth;
+  float headAngle = (headWind + scrollWind + local + clickWind) * reach
+    * (1.82 + .42 * farField) + detail;
+  float t = clamp((aRoot.y - aPosition.y) / height, 0., 1.);
+  // Integral de uma inclina\xe7\xe3o crescente: curva com raiz fixa e encurtamento
+  // vertical de segunda ordem. Evita alongar a haste ao dobr\xe1-la de lado.
+  vec2 bend = vec2(height * amount * t * t,
+    height * amount * amount * t * t * t * (2. / 3.));
+  vec2 tip = vec2(height * amount, height * amount * amount * (2. / 3.));
+  vec2 relative = aPosition - aCrown.yz;
+  // O TREMOR DA P\xc9TALA TEM TETO, E O TETO \xc9 UM CONTRATO.
+  //
+  // Ele multiplica a dist\xe2ncia da p\xe9tala ao miolo, ent\xe3o \xe9 literalmente uma
+  // mudan\xe7a de raio da copa: passar de 1% faz a flor pulsar de tamanho em vez
+  // de tremer, e o cen\xe1rio de transform feedback reprova isso. Medido: em
+  // 0,013 o erro de raio chegou a 1,49% no WebKit.
+  //
+  // A vers\xe3o de origem valia 0,012 VEZES (|vento| + 0,025) — 0,2% na pr\xe1tica,
+  // fraco demais para se ver depois da grade. Meio por cento com piso \xe9 o que
+  // cabe: aparece na troca de caractere da borda e n\xe3o desmancha a silhueta.
+  float flutter = sin(uTime * mix(1.9, 2.6, plantSeed) + aPhase
+    + dot(relative, vec2(12., 9.)))
+    * .006 * depth * aSurface.w * mix(.4, 1.1, gustEnergy);
+  vec2 crown = aCrown.yz + tip + rotatePlane(relative * (1. + flutter), headAngle);
+  vec2 p = mix(aPosition + bend, crown, aCrown.w);
+  p.y += uLift;
+
+  vec3 distant = mix(uSky * 4., aColour, .3);
+  vColour = mix(distant, aColour, .17 + .83 * pow(depth, 1.45));
+  // A superf\xedcie abaulada gira em dois eixos. A luz vem da lua na mesma
+  // coordenada da cena; n\xe3o h\xe1 pulso de brilho independente da orienta\xe7\xe3o.
+  vec3 normal = aSurface.xyz;
+  normal.xy = rotatePlane(normal.xy, headAngle);
+  float tilt = headAngle * .7;
+  normal = normalize(vec3(normal.x * cos(tilt) + normal.z * sin(tilt),
+    normal.y, normal.z * cos(tilt) - normal.x * sin(tilt)));
+  vec3 light = normalize(vec3(uMoonPosition - p, .65));
+  float diffuse = max(0., dot(normal, light));
+  float shade = .76 + .36 * diffuse;
+  vColour *= mix(1., shade, aCrown.w * mix(.18, 1., smoothstep(.12, .62, depth)));
+  // A LUA ILUMINA O FUNDO DO CAMPO; ELA N\xc3O PASSA POR CIMA DELE.
+  //
+  // O termo antigo era exp(-|x - luaX|) VEZES A PROFUNDIDADE: s\xf3 media a
+  // coluna, ignorava a altura, e o fator de profundidade entregava a luz
+  // exatamente \xe0s flores da frente — as mais longe da lua no quadro — e ZERO
+  // \xe0s do fundo, que s\xe3o as que ficam a poucos cent\xe9simos do disco. Somado \xe0
+  // perspectiva a\xe9rea, que j\xe1 apaga o fundo, o resultado era um horizonte
+  // fechado com um clar\xe3o em cima: a lua parecia estar sobre o campo, e n\xe3o
+  // acesa dentro dele.
+  //
+  // Agora a dist\xe2ncia \xe9 medida no plano, achatada em x porque uma lua baixa
+  // ilumina de rasp\xe3o e a luz corre mais longe na horizontal do que na
+  // vertical. E o peso se inverte: o fundo recebe a maior parte, que \xe9 o que
+  // devolve a profundidade sem clarear a cena inteira.
+  float toMoon = length((p - uMoonPosition) * vec2(.66, 1.));
+  float moonlight = exp(-toMoon * 1.55);
+  vColour *= 1. + moonlight * (.3 + .62 * (1. - depth));
+  // O filete especular segue a luz que realmente chega \xe0 p\xe9tala, e n\xe3o a
+  // fileira em que ela nasceu: uma flor do fundo virada para a lua acende
+  // como uma da frente. A rajada continua modulando, mas com piso — o brilho
+  // n\xe3o pode depender de o vento estar soprando.
+  float lunarRim = pow(diffuse, 3.5) * aSurface.w * moonlight;
+  vColour *= 1. + lunarRim * mix(.34, .62, gustEnergy);
+  gl_Position = vec4((p.x - uViewLeft) / uAspect * 2. - 1., 1. - p.y * 2., 0., 1.);
+}
+`,f=`#version 300 es
+precision highp float;
+in vec3 vColour;
+out vec4 outColor;
+void main() { outColor = vec4(vColour, 1.); }
+`,p=`#version 300 es
+precision highp float;
+uniform float uAspect;
+uniform float uViewLeft;
+uniform float uLift;
+uniform float uAge;
+uniform float uTime;
+uniform float uGust;
+uniform float uSeed;
+uniform float uPetalCount;
+uniform vec2 uOrigin;
+uniform float uRadius;
+uniform float uSquash;
+out float vLife;
+out float vGrain;
+out float vType;
+float hash(float value) {
+  return fract(sin(value * 127.1 + uSeed * 19.19) * 43758.5453);
+}
+void main() {
+  float particle = float(gl_VertexID);
+  float type = step(uPetalCount, particle);
+  float index = mix(particle, particle - uPetalCount, type);
+  float grain = hash(index + type * 101. + 1.);
+  float delay = hash(index + type * 101. + 17.) * .055;
+  float age = uAge - delay;
+  float lifetime = mix(1.02, 1.42, hash(index + type * 101. + 39.));
+  if (age <= 0. || age >= lifetime) {
+    gl_Position = vec4(2., 2., 0., 1.);
+    gl_PointSize = 0.;
+    vLife = 0.;
+    vGrain = grain;
+    vType = type;
+    return;
+  }
+  float angle = hash(index + type * 101. + 31.) * 6.283185;
+  float radius = sqrt(hash(index + type * 101. + 47.))
+    * uRadius * mix(.78, 1.05, type);
+  vec2 offset = vec2(cos(angle) * radius, sin(angle) * radius * uSquash);
+  if (type > .5) {
+    offset.x += uAspect * (hash(index + 73.) - .5) * .42;
+    offset.y += (hash(index + 89.) - .5) * uRadius * 1.65;
+  }
+  float phase = hash(index + 103.) * 6.283185;
+  float swayRate = mix(2.1, 3.3, grain);
+  float sway = (sin(phase + age * swayRate) - sin(phase))
+    * mix(.006, .014, type);
+  float windSpeed = mix(.075, .14, hash(index + 59.))
+    * mix(1., 1.28, type) + uGust * .08
+    + .006 * sin(uTime * .8 + phase);
+  vec2 position = uOrigin + offset + vec2(windSpeed * age, sway);
+  position.y += uLift;
+  gl_Position = vec4(
+    (position.x - uViewLeft) / uAspect * 2. - 1.,
+    1. - position.y * 2.,
+    0.,
+    1.
+  );
+  gl_PointSize = mix(4.8, 6.8, hash(index + 127.)) * mix(1., .76, type);
+  vLife = smoothstep(0., .1, age)
+    * (1. - smoothstep(lifetime * .72, lifetime, age))
+    * mix(.58, 1., uGust);
+  vGrain = grain;
+  vType = type;
+}
+`,v=`#version 300 es
+precision highp float;
+uniform vec3 uColour;
+uniform float uPreserveColour;
+in float vLife;
+in float vGrain;
+in float vType;
+out vec4 outColor;
+void main() {
+  vec2 point = gl_PointCoord - vec2(.5);
+  point.x *= mix(1., .62, vType);
+  float core = 1. - smoothstep(.18, .5, length(point));
+  float tail = (1. - smoothstep(.035, .2, abs(gl_PointCoord.y - .5)))
+    * (1. - smoothstep(.08, .44, gl_PointCoord.x));
+  float alpha = max(core, tail * vType * .55)
+    * vLife * mix(.68, .96, vGrain);
+  if (alpha < .015) discard;
+  vec3 colour = mix(uColour, vec3(.66, .79, .94), vType * .78 * (1. - uPreserveColour));
+  outColor = vec4(colour * mix(.94, 1.12, vGrain), alpha);
+}
+`,x=`#version 300 es
+precision highp float;
+in vec2 vUv;
+uniform sampler2D uScene;
+uniform sampler2D uShapes;
+uniform sampler2D uPrevious;
+uniform vec2 uGrid;
+uniform float uHistory;
+uniform vec3 uMoon;
+uniform float uAspect;
+uniform float uHorizon;
+out vec4 outColor;
+// Precisa bater com SHAPE_SAMPLES em ascii-night-scene.ts: um le a cena, o
+// outro monta a tabela, e uma divergencia entre os dois compara numeros de
+// lugares diferentes do caractere.
+const vec2 samples[6] = vec2[6](vec2(.34,.22), vec2(.66,.16), vec2(.34,.53), vec2(.66,.47), vec2(.34,.84), vec2(.66,.78));
+const vec2 neighbours[4] = vec2[4](vec2(1.,0.), vec2(-1.,0.), vec2(0.,1.), vec2(0.,-1.));
+// ORDERED DITHER, PORQUE GRADIENTE SUAVE VIRA BLOCO CHAPADO.
+//
+// Duas celulas vizinhas dentro de um degrade recebem intensidades quase
+// iguais, entao a busca devolve o MESMO caractere para as duas — e uma
+// superficie inteira que muda devagar sai como um bloco de @ com degraus
+// duros na fronteira. Era isso que fazia a lua parecer um recorte e o halo
+// sair em barras.
+//
+// A matriz de Bayer da a cada celula um limiar proprio, fixo no espaco. O
+// degrade passa a ser resolvido pela PROPORCAO de caracteres densos e
+// esparsos numa vizinhanca, que e exatamente como o ASCII feito a mao
+// desenha uma esfera. E como o limiar depende so do indice da celula, ele
+// nao muda entre quadros: acrescenta textura sem acrescentar cintilacao.
+//
+// Construcao recursiva a partir da matriz 2x2, como no guia de Bayer do
+// Codrops. Oito por oito e onde o ganho perceptivo para de compensar.
+float bayer2(vec2 a) { a = floor(a); return fract(a.x * .5 + a.y * a.y * .75); }
+#define bayer4(a) (bayer2(.5 * (a)) * .25 + bayer2(a))
+#define bayer8(a) (bayer4(.5 * (a)) * .25 + bayer2(a))
+vec3 sampleDisc(vec2 uv, vec2 texel) {
+  return (texture(uScene, uv).rgb * 2.
+    + texture(uScene, uv + vec2(texel.x, 0.)).rgb
+    + texture(uScene, uv - vec2(texel.x, 0.)).rgb
+    + texture(uScene, uv + vec2(0., texel.y)).rgb
+    + texture(uScene, uv - vec2(0., texel.y)).rgb) / 6.;
+}
+float brightness(vec3 c) { return max(c.r, max(c.g, c.b)); }
+void main() {
+  ivec2 cell = ivec2(gl_FragCoord.xy);
+  vec2 base = vec2(cell) / uGrid;
+  // O passo era .12/uGrid, ou seja meio texel do alvo intermediario, num alvo
+  // NEAREST: as quatro leituras vizinhas caiam quase sempre no mesmo texel do
+  // centro. Um texel de verdade custa o mesmo e entrega a suavizacao que o
+  // nome promete — e e ela que segura a cintilacao nas bordas de petala.
+  vec2 texel = 1. / vec2(textureSize(uScene, 0));
+  float values[6];
+  float peak = 0.;
+  vec3 peakColour = vec3(0.);
+  vec3 colour = vec3(0.);
+  float rubyPeak = 0.;
+  vec3 rubyColour = vec3(0.);
+  int rubySamples = 0;
+  for (int s = 0; s < 6; s++) {
+    vec3 c = sampleDisc(base + vec2(samples[s].x, 1. - samples[s].y) / uGrid, texel);
+    values[s] = brightness(c);
+    if (values[s] > peak) {
+      peak = values[s];
+      peakColour = c;
+    }
+    float cHigh = max(c.r, max(c.g, c.b));
+    float cLow = min(c.r, min(c.g, c.b));
+    float rubyLead = c.r / max(max(c.g, c.b), .015);
+    float cSaturation = (cHigh - cLow) / max(cHigh, .001);
+    if (
+      c.r > .06 &&
+      rubyLead > 1.24 &&
+      cSaturation > .48 &&
+      c.r > rubyPeak
+    ) {
+      rubyPeak = c.r;
+      rubyColour = c;
+    }
+    if (c.r > .06 && rubyLead > 1.24 && cSaturation > .48)
+      rubySamples++;
+    colour += c;
+  }
+  colour /= 6.;
+  // Um \xfanico ponto rubi pode cair na borda de um glifo sobre outra flor.
+  // A corre\xe7\xe3o de matiz cresce com a cobertura, e s\xf3 colore por inteiro quando
+  // pelo menos quatro das seis amostras pertencem \xe0 rosa.
+  if (rubySamples >= 2) {
+    float cellBrightness = brightness(colour);
+    vec3 rubyTone = rubyColour / max(brightness(rubyColour), .001);
+    float rubyCoverage = float(rubySamples) / 6.;
+    float rubyWeight = smoothstep(2. / 6., 4. / 6., rubyCoverage);
+    colour = mix(colour, rubyTone * cellBrightness, rubyWeight);
+  }
+  // CONTRASTE DIRECIONAL: A C\xc9LULA VALE O QUE ELA VALE PERTO DAS VIZINHAS.
+  //
+  // Quatro leituras a uma c\xe9lula de dist\xe2ncia dizem se esta c\xe9lula \xe9 um pico
+  // dentro do escuro ou um peda\xe7o qualquer de uma massa acesa. \xc9 a t\xe9cnica
+  // que o estudo do Codrops chama de contraste direcional, e ela \xe9 o que faz
+  // um campo de flores pequenas voltar a ter TEXTURA em vez de virar uma
+  // mancha: no tapete distante, duas c\xe9lulas vizinhas com brilho quase igual
+  // recebiam o mesmo caractere e a fileira inteira sa\xeda como uma faixa de x.
+  // Com o relevo, a que est\xe1 sobre a flor sobe de densidade e a que est\xe1 no
+  // v\xe3o desce, e a diferen\xe7a entre as duas \xe9 o desenho.
+  //
+  // O RELEVO S\xd3 SUBTRAI, E ISSO \xc9 O ARTIGO, N\xc3O UMA PRECAU\xc7\xc3O.
+  //
+  // Medido: deixando o relevo TAMB\xc9M somar — teto em 1,32 — o campo perdeu
+  // textura em vez de ganhar. Um caule isolado \xe9 o pico da sua vizinhan\xe7a,
+  // ent\xe3o ele recebia o b\xf4nus inteiro e trocava a barra por um arroba: a
+  // metade de baixo do quadro, que \xe9 feita de hastes, virava mancha. No
+  // estudo o contraste direcional empurra o valor PARA BAIXO quando a
+  // vizinha \xe9 mais clara, e nunca para cima. Com o teto em 1, o caule fica
+  // sendo caule e quem cede \xe9 a c\xe9lula que perde para a vizinha — que \xe9
+  // exatamente onde a folga entre duas flores precisa nascer.
+  vec2 stride = 1. / uGrid;
+  vec2 centre = base + stride * .5;
+  float around = 0.;
+  for (int n = 0; n < 4; n++)
+    around += brightness(sampleDisc(centre + neighbours[n] * stride, texel));
+  float relief = peak / max(around * .25, .012);
+  float definition = clamp(pow(relief, .34), .78, 1.);
+  vec2 position = vec2((base.x + .5 / uGrid.x) * uAspect,
+    1. - base.y - .5 / uGrid.y);
+  float ground = mix(.97, .43, uHorizon);
+  float moonDistance = length(position - uMoon.xy);
+  bool moonCell = moonDistance < uMoon.z;
+  // As corolas podem cruzar o horizonte enquanto a c\xe2mera assenta. Preserve
+  // c\xe9lulas de cor floral saturada no vocabul\xe1rio do jardim, mesmo acima dele;
+  // o c\xe9u azul e as estrelas, menos saturados, continuam usando sua rampa.
+  float peakHigh = max(peakColour.r, max(peakColour.g, peakColour.b));
+  float peakLow = min(peakColour.r, min(peakColour.g, peakColour.b));
+  float peakSaturation = (peakHigh - peakLow) / max(peakHigh, .001);
+  bool saturatedBloom = peak > .08 && peakSaturation > .58;
+  float waterReveal = smoothstep(.38, .9, uHorizon);
+  float waterTop = mix(1.035, .9, smoothstep(.34, .96, uHorizon));
+  bool waterCell = uAspect < .65 && waterReveal > .45
+    && position.y > waterTop - .02 && !saturatedBloom
+    && colour.b > colour.g * 1.04 && colour.g > colour.r * 1.16;
+  bool skyCell = !moonCell && position.y < ground && !saturatedBloom;
+  // A AURA DA LUA \xc9 C\xc9U, E O JARDIM N\xc3O \xc9 C\xc9U.
+  //
+  // Ela era um raio na tela e mais nada: 2,75 vezes o disco, a partir de uma
+  // lua que no fim da p\xe1gina mora a 0,215 do topo com raio 0,17. A aura
+  // descia at\xe9 0,68 — mais de vinte cent\xe9simos ABAIXO da linha do horizonte —
+  // e ali dentro toda c\xe9lula, inclusive as do campo, trocava densidade e
+  // vocabul\xe1rio pelos da atmosfera. As flores do fundo perto da lua eram
+  // reimpressas com pontos fracos: um V\xc9U sobre elas, que \xe9 exatamente o
+  // contr\xe1rio de serem iluminadas por ela.
+  //
+  // Agora a aura s\xf3 existe onde existe c\xe9u, e a queda \xe9 cont\xednua. O limite
+  // r\xedgido de antes tamb\xe9m deixava um anel vis\xedvel onde o vocabul\xe1rio
+  // trocava de um lado para o outro da fronteira.
+  float aura = skyCell
+    ? 1. - smoothstep(uMoon.z * 1.02, uMoon.z * 2.75, moonDistance)
+    : 0.;
+  bool moonAura = aura > .04;
+  // Halo e poeira s\xe3o tinta esparsa. Um campo fraco cont\xednuo n\xe3o deve virar
+  // uma parede de caracteres. O sorteio \xe9 fixo por c\xe9lula, sem ru\xeddo temporal.
+  float stipple = fract(sin(dot(vec2(cell), vec2(127.1, 311.7))) * 43758.5453);
+  if (skyCell && !moonAura && peak < .18
+      && stipple > smoothstep(.055, .18, peak) * .72) {
+    outColor = vec4(0.); return;
+  }
+  // A atmosfera da lua e uma materia propria: continua esparsa, mas nao pode
+  // cair no mesmo descarte das estrelas e sumir antes de chegar ao papel.
+  if (moonAura && peak < .032
+      && stipple > smoothstep(.024, .12, peak) * .9) {
+    outColor = vec4(0.); return;
+  }
+
+  // O CORTE DE PRESENCA TEM DUAS ALTURAS, E NAO UMA.
+  //
+  // Medido: 71% da tinta do tapete distante trocava a cada nove decimos de
+  // segundo. Isso nao e vento, e fervura — e ela vinha daqui. O fundo do
+  // campo e escuro por construcao (perspectiva aerea), entao ele vive
+  // exatamente em cima deste limiar: uma variacao minima de brilho apaga a
+  // celula, a seguinte a acende, e o quadro inteiro pisca no lugar de se
+  // mexer. Com o campo fervendo nesse ritmo, qualquer movimento estruturado
+  // que se acrescente — rajada atravessando, ciclo longo de vento — fica
+  // invisivel dentro do ruido.
+  //
+  // Duas alturas resolvem: uma celula que ja estava acesa so apaga quando cai
+  // bem abaixo do ponto em que teria acendido. E o mesmo principio de um
+  // termostato, e ele custa uma leitura que ja estava sendo feita.
+  vec4 previousCell = texelFetch(uPrevious, cell, 0);
+  float previous = floor(previousCell.a * 255. + .5);
+  float gate = .07 - .019 * step(.5, previous) * uHistory;
+  if (peak < gate) { outColor = vec4(0.); return; }
+  // Adapta\xe7\xe3o da sele\xe7\xe3o por lumin\xe2ncia do Aniso:
+  // github.com/darkroomengineering/aniso/blob/main/components/ascii-effect/fragment.glsl
+  // Ela cuida s\xf3 do fundo escuro do c\xe9u no fechamento do contato. Lua, jardim
+  // e estrelas claras mant\xeam a sele\xe7\xe3o por forma; lumin\xe2ncia isolada apaga
+  // p\xe9talas azuis, escurece o disco lunar e afina pontos luminosos.
+  // Veja ANISO-LICENSE nesta pasta.
+  if (uHorizon > .94 && skyCell && peak < .18) {
+    vec3 source = texture(uScene, centre).rgb;
+    float gray = dot(source, vec3(.299, .587, .114));
+    int rampIndex = int(floor(gray * ${n.ANISO_GLYPHS.length-1}.));
+    rampIndex = clamp(rampIndex, 0, ${n.ANISO_GLYPHS.length-1});
+    int glyphIndex = ${n.NIGHT_GLYPHS.length} + rampIndex;
+    outColor = vec4(colour, float(glyphIndex) / 255.);
+    return;
+  }
+  // A assinatura da celula sai do laco dos caracteres: ela depende do pico e
+  // da amostra, e nao do candidato. Dentro do laco eram dois pow por
+  // comparacao, 468 por celula, para produzir seis numeros.
+  // A AMPLITUDE DO DITHER E UM DEGRAU DA RAMPA, E NAO OITO.
+  //
+  // O vocabulario tem 39 caracteres, entao um degrau de densidade vale cerca
+  // de 1/39. Com amplitude .2 — oito degraus — metade das celulas do disco da
+  // lua caia para um caractere fino e a superficie saia TRANCADA, como
+  // vime: tecnicamente e um degrade, visualmente e um padrao. O dither existe
+  // para desempatar vizinhas, nao para competir com o desenho.
+  float density = clamp(
+    mix(.24, .88, pow(peak, .72)) * definition
+      + (bayer8(vec2(cell)) - .47) * .055,
+    .04, 1.);
+  if (waterCell) density = clamp(
+    mix(.045, .17, pow(peak, .8)) + (bayer8(vec2(cell)) - .47) * .024,
+    .03, .2);
+  // A atmosfera da lua tem a sua pr\xf3pria rampa, e ela entra por mistura: a
+  // fronteira da aura deixa de ser um degrau de densidade no meio do c\xe9u.
+  density = mix(density, clamp(
+    mix(.09, .48, pow(peak, .62)) + (bayer8(vec2(cell)) - .47) * .038,
+    .045, .58), aura);
+  if (moonCell) density = clamp(pow(peak, .8) * .96, .07, .96);
+  float signature[6];
+  for (int s = 0; s < 6; s++)
+    signature[s] = pow(values[s] / max(peak, .001), 1.45) * density;
+
+  // Cor e forma continuam independentes: petala azul precisa da mesma
+  // fidelidade de silhueta que a lua, que e muito mais luminosa.
+  //
+  // A HISTERESE E UM DESCONTO, E NAO UM BONUS.
+  //
+  // Ela era um abatimento fixo de .07 sobre a distancia. A distancia e uma
+  // soma de seis quadrados e vale entre .03 e .15 para uma celula que casa
+  // bem: o abatimento era da ordem do numero inteiro, e maior que o intervalo
+  // entre o primeiro e o segundo candidato. Pior, um valor absoluto sobre uma
+  // metrica quadratica pesa MUITO onde a distancia e pequena e quase nada
+  // onde ela e grande — exatamente ao contrario do que se quer.
+  //
+  // Uma fracao e invariante de escala: ela desempata candidatos parecidos,
+  // que e a unica coisa que a histerese precisa fazer, e nao se opoe a uma
+  // troca que o desenho realmente pediu. O escuro fica mais preso que o
+  // claro, porque e no escuro que o empate acontece.
+  // Compara a tinta atual \xe0 anterior, no mesmo espa\xe7o e com o mesmo ganho.
+  // \xc9 um indicador temporal de cor/cobertura, n\xe3o um vetor de movimento.
+  // Quando a borda muda, a prefer\xeancia antiga cede; n\xe3o misturamos imagens,
+  // portanto n\xe3o h\xe1 ac\xfamulo de rastros. A busca por forma continua decisiva.
+  float luminance = brightness(colour);
+  colour = clamp(colour * min(1.75, max(1., peak / max(luminance, .01))), 0., 1.);
+  bool foliageCell = colour.g > max(colour.r, colour.b) * 1.14 && colour.g > .1;
+  float change = brightness(abs(colour - previousCell.rgb));
+  float moving = smoothstep(.025, .14, change);
+  float steadiness = mix(mix(.72, .9, smoothstep(.12, .5, peak)), 1., moving);
+  float bestDistance = 100.;
+  int best = 0;
+  for (int g = 1; g < ${n.NIGHT_GLYPHS.length}; g++) {
+    if (waterCell && !(${c})) continue;
+    // O campo tem uma fam\xedlia pr\xf3pria, sem tornar a busca das outras c\xe9lulas
+    // mais longa. Os caracteres verdes preservam a forma fina de folhas e talos.
+    if (foliageCell && !(${l})) continue;
+    if (moonAura && !(${[...".,:;+*ox"].map(e=>`g == ${n.NIGHT_GLYPHS.indexOf(e)}`).join(" || ")})) continue;
+    if (!moonAura && skyCell && peak < .2 && g != ${n.NIGHT_GLYPHS.indexOf(".")} && g != ${n.NIGHT_GLYPHS.indexOf(":")}) continue;
+    if (!moonAura && skyCell && !(${[...".,:+*ox"].map(e=>`g == ${n.NIGHT_GLYPHS.indexOf(e)}`).join(" || ")})) continue;
+    if (!foliageCell && moonCell && !(${[...".,:;ox%&#@"].map(e=>`g == ${n.NIGHT_GLYPHS.indexOf(e)}`).join(" || ")})) continue;
+    vec4 shapeA = texelFetch(uShapes, ivec2(0, g), 0);
+    vec4 shapeB = texelFetch(uShapes, ivec2(1, g), 0);
+    vec4 deltaA = vec4(signature[0], signature[1], signature[2], signature[3]) - shapeA;
+    vec2 deltaB = vec2(signature[4], signature[5]) - shapeB.xy;
+    float distance = dot(deltaA, deltaA) + dot(deltaB, deltaB);
+    if (float(g) == previous) distance *= mix(1., steadiness, uHistory);
+    if (distance < bestDistance) { bestDistance = distance; best = g; }
+  }
+  // Glifos extras entram s\xf3 na sele\xe7\xe3o verde. A rampa do c\xe9u mant\xe9m seus
+  // \xedndices, e a busca maior s\xf3 roda nas c\xe9lulas de caule e folhagem.
+  if (foliageCell) {
+    for (int f = 0; f < ${n.EXTRA_FOLIAGE_GLYPHS.length}; f++) {
+      int g = ${u} + f;
+      vec4 shapeA = texelFetch(uShapes, ivec2(0, g), 0);
+      vec4 shapeB = texelFetch(uShapes, ivec2(1, g), 0);
+      vec4 deltaA = vec4(signature[0], signature[1], signature[2], signature[3]) - shapeA;
+      vec2 deltaB = vec2(signature[4], signature[5]) - shapeB.xy;
+      float distance = dot(deltaA, deltaA) + dot(deltaB, deltaB);
+      if (float(g) == previous) distance *= mix(1., steadiness, uHistory);
+      if (distance < bestDistance) { bestDistance = distance; best = g; }
+    }
+  }
+  outColor = vec4(colour, float(best) / 255.);
+}
+`,g=`#version 300 es
+precision highp float;
+in vec2 vUv;
+uniform sampler2D uCells;
+uniform sampler2D uAtlas;
+uniform vec2 uGrid;
+uniform float uReveal;
+uniform float uAspect;
+uniform float uMobileColorBoost;
+uniform float uBotanicalPalette;
+uniform vec3 uSky;
+out vec4 outColor;
+float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1,311.7))) * 43758.5453); }
+void main() {
+  vec2 grid = vUv * uGrid;
+  ivec2 cell = ivec2(min(floor(grid), uGrid - 1.));
+  vec4 data = texelFetch(uCells, cell, 0);
+  float glyph = floor(data.a * 255. + .5);
+  vec2 local = fract(grid);
+  vec2 atlasUv = vec2((glyph + clamp(local.x,.015,.985)) / ${n.ALL_GLYPHS.length}.0, 1. - clamp(local.y,.015,.985));
+  // Nivel zero evita costura de derivada entre glifos vizinhos no atlas.
+  float ink = textureLod(uAtlas, atlasUv, 0.).a;
+  float arrive = smoothstep(hash(vec2(cell)) * .50, .50 + hash(vec2(cell)) * .50, uReveal);
+  vec3 inkColour = min(data.rgb * 1.18, vec3(1.));
+  float redHigh = max(inkColour.r, max(inkColour.g, inkColour.b));
+  float redLow = min(inkColour.r, min(inkColour.g, inkColour.b));
+  float redSaturation = (redHigh - redLow) / max(redHigh, .001);
+  float passionRed = smoothstep(1.5, 2.5, inkColour.r / max(inkColour.g, .015))
+    * smoothstep(1.3, 1.8, inkColour.r / max(inkColour.b, .015))
+    * smoothstep(.52, .72, redSaturation);
+  float violetBloom = smoothstep(1.22, 1.7, inkColour.r / max(inkColour.g, .015))
+    * smoothstep(1.2, 1.6, inkColour.b / max(inkColour.g, .015))
+    * smoothstep(.86, 1.08, inkColour.b / max(inkColour.r, .015));
+  float blueBloom = smoothstep(1.55, 1.9, inkColour.b / max(inkColour.g, .015))
+    * smoothstep(1.5, 2., inkColour.b / max(inkColour.r, .015))
+    * (1. - violetBloom);
+  // A composi\xe7\xe3o bot\xe2nica j\xe1 fornece o pigmento de cada esp\xe9cie. O ajuste
+  // legado de rubi/violeta n\xe3o deve transformar laranja em rubi ou rosa em roxo.
+  passionRed *= 1. - uBotanicalPalette;
+  violetBloom *= 1. - uBotanicalPalette;
+  // Os tr\xeas matizes s\xe3o corrigidos depois da escolha do glifo: o rubi ganha
+  // vermelho, o roxo ganha satura\xe7\xe3o e o azul abre dist\xe2ncia crom\xe1tica.
+  inkColour *= mix(vec3(1.), vec3(1., .42, .62), passionRed);
+  inkColour *= mix(vec3(1.), vec3(.58, .52, 1.), violetBloom);
+  // Levanta os meios-tons e abre a dist\xe2ncia entre cores sem clarear o fundo.
+  // O ganho cresce no retrato, onde as mesmas cores ocupam menos pixels.
+  float portrait = 1. - smoothstep(.58, .9, uAspect);
+  float luminance = dot(inkColour, vec3(.2126, .7152, .0722));
+  float liftedLuminance = min(luminance + mix(.02, .05, portrait), 1.);
+  float saturation = mix(1.12, 1.34, portrait)
+    + .12 * uMobileColorBoost
+    + .24 * violetBloom + .22 * blueBloom;
+  inkColour = clamp(
+    vec3(liftedLuminance)
+      + (inkColour - vec3(luminance)) * saturation,
+    0., 1.);
+  float foliageRatio = inkColour.g / max(max(inkColour.r, inkColour.b), .015);
+  float foliage = smoothstep(1.22, 1.68, foliageRatio)
+    * smoothstep(.08, .2, inkColour.g);
+  // Mistura a folhagem com o azul-noite para tirar o aspecto fluorescente.
+  // No retrato, a mistura \xe9 um pouco menor para preservar leitura na grade curta.
+  inkColour = mix(
+    inkColour,
+    uSky + (inkColour - uSky) * mix(.84, .9, portrait),
+    foliage);
+  outColor = vec4(mix(uSky, inkColour, ink * arrive), 1.);
+}
+`,b=new Float32Array(n.SKY_INK),A="(any-pointer: coarse)",w=(e,t,a)=>Math.min(a,Math.max(t,e)),E=e=>null!==e&&Number.isFinite(e)?e:null,y=()=>{let e=window.orientation;return("number"==typeof e?e:void 0)??screen.orientation?.angle??0};e.s(["AsciiNightRenderer",0,class{options;gl;programs;textures;framebuffers;renderbuffers;buffers;arrays;sky;field;flowerBurst;cells;print;quad;meadow;meshBuffer;scene;cellTargets;atlas;shapes;resizeObserver;intersectionObserver;orientationEligible;fps;budget;unsubscribe;visible;disposed;contextLost;firstFrame;dirty;scrolled;aspect;compactSky;moon;geometry;reading;renderDpr;viewWidth;viewHeight;phoneColorBoost;worldAspect;viewLeft;viewLeftDrawn;panRange;pan;panTarget;cols;rows;count;botanicalPalette;previous;history;sceneTime;reveal;horizon;drawnHorizon;stir;windGust;windGustUntil;multisample;pointer;pointerTarget;interactiveFlowers;flowerBursts;flowerBurstSeed;flowerBurstUnavailable;orientationBaseline;orientationScreenAngle;orientationSession;constructor(e){this.options=e,this.programs=[],this.textures=[],this.framebuffers=[],this.renderbuffers=[],this.buffers=[],this.arrays=[],this.flowerBurst=null,this.unsubscribe=null,this.visible=!1,this.disposed=!1,this.contextLost=!1,this.firstFrame=!0,this.dirty=!0,this.scrolled=!0,this.aspect=1,this.compactSky=!1,this.moon=new Float32Array(3),this.geometry={readingBottom:0,horizon:0},this.renderDpr=0,this.viewWidth=1,this.viewHeight=1,this.phoneColorBoost=0,this.worldAspect=1,this.viewLeft=0,this.viewLeftDrawn=0,this.panRange=0,this.pan=0,this.panTarget=0,this.cols=1,this.rows=1,this.count=0,this.botanicalPalette=!1,this.previous=0,this.history=!1,this.sceneTime=0,this.reveal=0,this.horizon=-1,this.drawnHorizon=-1,this.stir=0,this.windGust=0,this.windGustUntil=0,this.multisample=null,this.pointer=[-10,-10],this.pointerTarget=[-10,-10],this.interactiveFlowers=[],this.flowerBursts=[],this.flowerBurstSeed=0,this.flowerBurstUnavailable=!1,this.orientationBaseline=null,this.orientationScreenAngle=0,this.presence=()=>this.disposed||this.contextLost||!this.visible?0:this.options.reducedMotion?this.dirty||this.firstFrame||this.scrolled?1:0:1,this.draw_=({deltaSeconds:e,interval:t})=>{(this.scrolled||this.dirty||this.firstFrame)&&(this.horizon=this.measureHorizon()),this.scrolled=!1;try{this.draw(e,t)}catch(e){this.options.onFailure(e),this.destroy();return}!this.firstFrame&&this.budget.observe(t)&&(this.dirty=!0)},this.onScroll=()=>{this.scrolled=!0,this.wake()},this.onResize=()=>{this.dirty=!0,this.onScroll()},this.onVisibility=()=>{document.hidden?(this.orientationBaseline=null,this.panTarget=0,this.sleep()):this.onScroll()},this.onContextLost=e=>{e.preventDefault(),this.contextLost=!0,this.sleep(),this.visible=!1,this.options.onFailure(Error("ASCII WebGL context lost; static night retained"))},this.onContextRestored=()=>{this.options.canvas.dispatchEvent(new CustomEvent("ascii:restore"))},this.onPointer=e=>{if("mouse"!==e.pointerType||this.options.reducedMotion)return;let t=this.options.canvas.getBoundingClientRect();this.pointerTarget=[(e.clientX-t.left)/t.height,(e.clientY-t.top)/t.height]},this.onPointerLeave=()=>{this.pointerTarget=[-10,-10]},this.onFlowerClick=e=>{if(!this.canClickFlowers()||0!==e.button||this.horizon<=.004)return;let t=this.options.canvas.getBoundingClientRect();if(t.height<=0||t.width<=0)return;let a=(1-this.horizon)*n.FIELD_LIFT-this.horizon*n.FIELD_SETTLE,o=this.viewLeft+this.pan+(e.clientX-t.left)/t.height,i=(e.clientY-t.top)/t.height-a,s=this.botanicalPalette?function(e,t,a,o=0){let i=null,s=1/0;for(let r of e){let e=t-r.x,n=a-r.y,l=Math.max(o,1.35*r.radius+.35*r.stalk),u=Math.max(o,r.radius*r.squash*1.5+.1*r.stalk);if(l<=0||u<=0)continue;let c=(e/l)**2+(n/u)**2<=1,h=e*e+n*n;c&&h<s&&(i=r,s=h)}return i}(this.interactiveFlowers,o,i,4/t.height):null;if(!this.botanicalPalette){let e=1/0;for(let t of this.interactiveFlowers){let a=1.35*t.radius+.35*t.stalk,r=t.radius*t.squash*1.5+.1*t.stalk,n=(o-t.x)/a,l=(i-t.y)/r,u=n*n+l*l;u<=1&&u<e&&(s=t,e=u)}}if(!s)return;this.flowerBurstSeed+=1;let r={flowerId:s.id,preserveColour:this.botanicalPalette,x:this.botanicalPalette?o:s.x,y:this.botanicalPalette?i:s.y,colour:new Float32Array(s.colour),radius:s.radius,squash:s.squash,startedAt:this.sceneTime,seed:this.flowerBurstSeed};if(this.botanicalPalette){var l=this.flowerBursts;for(let e=l.length-1;e>=0;e--)l[e].flowerId===r.flowerId&&l.splice(e,1);l.push(r);let e=l.length-Math.max(0,Math.floor(7));e>0&&l.splice(0,e)}else this.flowerBursts.push(r),this.flowerBursts.length>3&&this.flowerBursts.shift();this.windGustUntil=Math.max(this.windGustUntil,this.sceneTime+.32),this.wake()},this.onDeviceOrientation=e=>{let t=y(),a=((e,t)=>{let a=E(e.beta),o=E(e.gamma);if(null!==a&&null!==o){let e=t*Math.PI/180;return o*Math.cos(e)+a*Math.sin(e)}return E(e.alpha)})(e,t);if(null===a)return;if(!this.visible||document.hidden||this.options.reducedMotion){this.orientationBaseline=null,this.panTarget=0;return}if(t!==this.orientationScreenAngle){this.orientationScreenAngle=t,this.orientationBaseline=a,this.panTarget=0,this.wake();return}if(null===this.orientationBaseline){this.orientationBaseline=a,this.wake();return}let o=-((a-this.orientationBaseline+540)%360-180),i=w(Math.max(0,Math.abs(o)-.65)/11.35,0,1);this.panTarget=i*(2-i)*Math.sign(o)*this.panRange,this.wake()},this.reading=e.range.querySelector("[data-night-reading]");const t=matchMedia("(pointer: coarse)").matches;this.orientationEligible=matchMedia(A).matches,this.orientationScreenAngle=y();const o=e.canvas.getContext("webgl2",{alpha:!1,antialias:!1,depth:!1,stencil:!1,powerPreference:t?"high-performance":"low-power"});if(!o)throw Error("WebGL2 unavailable; static ASCII retained");this.gl=o,this.fps=60;const i=devicePixelRatio||1;this.budget=new a.FrameBudget(t?Math.max(i,3):1.5,this.fps,t?3:1,t?3:1.5);try{for(const[e,t,a]of(this.sky=this.program(h,d),this.field=this.program(m,f),this.cells=this.program(h,x),this.print=this.program(h,g),this.quad=this.array(),o.bindVertexArray(this.quad),o.bindBuffer(o.ARRAY_BUFFER,this.buffer()),o.bufferData(o.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),o.STATIC_DRAW),o.enableVertexAttribArray(0),o.vertexAttribPointer(0,2,o.FLOAT,!1,0,0),this.meadow=this.array(),o.bindVertexArray(this.meadow),this.meshBuffer=this.buffer(),o.bindBuffer(o.ARRAY_BUFFER,this.meshBuffer),[[0,2,0],[1,2,2],[2,1,4],[3,1,5],[4,3,6],[5,4,10],[6,4,14]]))o.enableVertexAttribArray(e),o.vertexAttribPointer(e,t,o.FLOAT,!1,4*n.VERTEX_STRIDE,4*a);this.scene=this.target(),this.cellTargets=[this.target(),this.target()];const e=(0,n.makeGlyphAtlas)();this.atlas=this.texture(o.LINEAR),o.texImage2D(o.TEXTURE_2D,0,o.RGBA,o.RGBA,o.UNSIGNED_BYTE,e.canvas),this.shapes=this.texture(o.NEAREST),o.texImage2D(o.TEXTURE_2D,0,o.RGBA32F,2,n.ALL_GLYPHS.length,0,o.RGBA,o.FLOAT,e.shapes)}catch(e){throw this.release(),e}this.resizeObserver=new ResizeObserver(()=>{this.dirty=!0,this.scrolled=!0,this.wake()}),this.resizeObserver.observe(e.canvas),this.resizeObserver.observe(e.range),this.resizeObserver.observe(e.camera),this.reading&&this.resizeObserver.observe(this.reading),this.intersectionObserver=new IntersectionObserver(([e])=>{this.visible=!!e?.isIntersecting,this.visible?this.wake():(this.orientationBaseline=null,this.panTarget=0,this.sleep())}),this.intersectionObserver.observe(e.range),document.addEventListener("visibilitychange",this.onVisibility),addEventListener("scroll",this.onScroll,{passive:!0}),addEventListener("resize",this.onResize,{passive:!0}),addEventListener("pageshow",this.onScroll),addEventListener("focus",this.onScroll),document.addEventListener("focusin",this.onScroll),document.addEventListener("focusout",this.onScroll),window.visualViewport?.addEventListener("scroll",this.onScroll,{passive:!0}),window.visualViewport?.addEventListener("resize",this.onScroll,{passive:!0}),e.canvas.addEventListener("webglcontextlost",this.onContextLost),e.canvas.addEventListener("webglcontextrestored",this.onContextRestored),e.canvas.addEventListener("pointermove",this.onPointer),e.canvas.addEventListener("pointerleave",this.onPointerLeave),e.canvas.addEventListener("click",this.onFlowerClick),this.orientationSession=new r({target:window,visibility:document,eligible:this.orientationEligible,reducedMotion:e.reducedMotion,secure:isSecureContext,permissionAPI:"u"<typeof DeviceOrientationEvent?void 0:DeviceOrientationEvent,permissions:navigator.permissions,onState:t=>{e.canvas.dataset.orientation=t,e.onOrientationState(t)},onSample:this.onDeviceOrientation}),this.orientationSession.watch(),e.canvas.dataset.motion=e.reducedMotion?"still":"wind"}program(e,t){let a=this.gl,o=[],i=a.createProgram();if(!i)throw Error("ASCII program allocation failed");try{for(let[s,r]of[[a.VERTEX_SHADER,e],[a.FRAGMENT_SHADER,t]]){let e=a.createShader(s);if(!e)throw Error("ASCII shader allocation failed");if(o.push(e),a.shaderSource(e,r),a.compileShader(e),!a.getShaderParameter(e,a.COMPILE_STATUS))throw Error(a.getShaderInfoLog(e)??"ASCII shader rejected");a.attachShader(i,e)}if(["aPosition","aRoot","aDepth","aPhase","aColour","aCrown","aSurface"].forEach((e,t)=>{a.bindAttribLocation(i,t,e)}),a.linkProgram(i),!a.getProgramParameter(i,a.LINK_STATUS))throw Error(a.getProgramInfoLog(i)??"ASCII link rejected");let s={};for(let e=0;e<a.getProgramParameter(i,a.ACTIVE_UNIFORMS);e++){let t=a.getActiveUniform(i,e)?.name;if(!t)continue;let o=a.getUniformLocation(i,t);null!==o&&(s[t]=o)}let r={program:i,uniforms:s};return this.programs.push(r),r}catch(e){throw a.deleteProgram(i),e}finally{for(let e of o)a.deleteShader(e)}}texture(e){let t=this.gl,a=t.createTexture();if(!a)throw Error("ASCII texture allocation failed");return this.textures.push(a),t.bindTexture(t.TEXTURE_2D,a),t.texParameteri(t.TEXTURE_2D,t.TEXTURE_MIN_FILTER,e),t.texParameteri(t.TEXTURE_2D,t.TEXTURE_MAG_FILTER,e),t.texParameteri(t.TEXTURE_2D,t.TEXTURE_WRAP_S,t.CLAMP_TO_EDGE),t.texParameteri(t.TEXTURE_2D,t.TEXTURE_WRAP_T,t.CLAMP_TO_EDGE),a}target(){let e=this.texture(this.gl.NEAREST),t=this.gl.createFramebuffer();if(!t)throw Error("ASCII framebuffer allocation failed");return this.framebuffers.push(t),{texture:e,framebuffer:t}}buffer(){let e=this.gl.createBuffer();if(!e)throw Error("ASCII buffer allocation failed");return this.buffers.push(e),e}array(){let e=this.gl.createVertexArray();if(!e)throw Error("ASCII vertex array allocation failed");return this.arrays.push(e),e}allocate(e,t,a){let o=this.gl;if(o.bindTexture(o.TEXTURE_2D,e.texture),o.texImage2D(o.TEXTURE_2D,0,o.RGBA8,t,a,0,o.RGBA,o.UNSIGNED_BYTE,null),o.bindFramebuffer(o.FRAMEBUFFER,e.framebuffer),o.framebufferTexture2D(o.FRAMEBUFFER,o.COLOR_ATTACHMENT0,o.TEXTURE_2D,e.texture,0),o.checkFramebufferStatus(o.FRAMEBUFFER)!==o.FRAMEBUFFER_COMPLETE)throw Error("ASCII framebuffer incomplete");o.clearColor(0,0,0,0),o.clear(o.COLOR_BUFFER_BIT)}allocateMultisample(e,t){let a=this.gl,o=Math.min(4,a.getParameter(a.MAX_SAMPLES)??0);if(o<2){this.multisample=null;return}if(!this.multisample){let e=a.createRenderbuffer(),t=a.createFramebuffer();if(!e||!t){this.multisample=null;return}this.renderbuffers.push(e),this.framebuffers.push(t),this.multisample={framebuffer:t,renderbuffer:e}}a.bindRenderbuffer(a.RENDERBUFFER,this.multisample.renderbuffer),a.renderbufferStorageMultisample(a.RENDERBUFFER,o,a.RGBA8,e,t),a.bindFramebuffer(a.FRAMEBUFFER,this.multisample.framebuffer),a.framebufferRenderbuffer(a.FRAMEBUFFER,a.COLOR_ATTACHMENT0,a.RENDERBUFFER,this.multisample.renderbuffer),a.checkFramebufferStatus(a.FRAMEBUFFER)!==a.FRAMEBUFFER_COMPLETE&&(this.multisample=null)}resize(){let e,{canvas:t}=this.options,a=Math.max(1,t.clientWidth),i=Math.max(1,t.clientHeight),s=matchMedia("(pointer: coarse)").matches,r=devicePixelRatio||1,l=Math.min(s?Math.max(r,3):r,this.budget.ceiling);if(a===this.viewWidth&&i===this.viewHeight&&l===this.renderDpr){this.dirty=!1;return}let u=this.panRange,c=u>0?w(this.pan/u,-1,1):0,h=u>0?w(this.panTarget/u,-1,1):0;this.ensureFlowerBurst(),this.viewWidth=a,this.viewHeight=i,this.renderDpr=l,this.compactSky=(0,o.isNightReadingViewport)(a),this.phoneColorBoost=+!!(0,n.isPhoneColorViewport)(a,i),t.width=Math.round(a*l),t.height=Math.round(i*l);let d=(e=Math.max(s?5.4:6.5,Math.sqrt(a*i/(1.6*(s?7400:13e3)))),{columns:Math.max(1,Math.floor(a/e)),rows:Math.max(1,Math.floor(i/(1.6*e)))});this.cols=d.columns,this.rows=d.rows,this.aspect=a/i;let m=(0,n.getNightFlowerLayout)(a,i);this.botanicalPalette="ultrawide"===m;let f=(0,n.isTabletFlowerViewport)(a),p=(2*Math.max((0,n.getMotionFlowerRadius)(f),(0,n.getMotionSunflowerRadius)(f))+this.aspect*n.MOTION_FLOWER_REVEAL_GAP)/(.9*this.aspect)+.02,v=this.orientationEligible&&!this.options.reducedMotion?Math.max(.27,p):.27;for(let e of(this.worldAspect=this.orientationEligible?this.aspect*(1+2*v):this.aspect,this.viewLeft=(this.worldAspect-this.aspect)*.5,this.panRange=this.orientationEligible?(this.worldAspect-this.aspect)*.45:0,this.pan=c*this.panRange,this.panTarget=h*this.panRange,this.viewLeftDrawn=this.viewLeft+this.pan,this.allocate(this.scene,4*this.cols,6*this.rows),this.allocateMultisample(4*this.cols,6*this.rows),this.cellTargets))this.allocate(e,this.cols,this.rows);let x=Math.ceil(this.cols*(this.worldAspect/this.aspect)),g=(0,n.buildFieldMesh)(this.worldAspect,void 0,{columns:x,rows:this.rows,viewLeft:this.viewLeft,viewWidth:this.aspect,viewAspect:this.aspect,tabletFlowerDetail:f,flowerLayout:m,suppressBlueBloom:(0,n.isBlueBloomSuppressedViewport)(a),flowerPlacement:this.orientationEligible&&!this.options.reducedMotion?"sensor":void 0,interactiveFlowers:this.options.reducedMotion?void 0:this.interactiveFlowers});this.count=g.length/n.VERTEX_STRIDE,this.gl.bindBuffer(this.gl.ARRAY_BUFFER,this.meshBuffer),this.gl.bufferData(this.gl.ARRAY_BUFFER,g,this.gl.STATIC_DRAW),this.history=!1,this.drawnHorizon=-1,t.dataset.cells=String(this.cols*this.rows),t.dataset.triangles=String(this.count/3),this.dirty=!1}measureHorizon(){var e;let t,a,o=this.options.canvas.getBoundingClientRect(),s=this.options.camera.getBoundingClientRect(),r=this.reading?.getBoundingClientRect().bottom??s.top;return e=this.geometry,t=Math.max(1,o.height),e.readingBottom=(r-o.top)/t,e.horizon=(a=s.height>0?i((o.top+t-s.top)/s.height):0)*a*(3-2*a),this.geometry.horizon}bind(e,t,a,o){this.gl.bindFramebuffer(this.gl.FRAMEBUFFER,t?.framebuffer??null),this.gl.viewport(0,0,a,o),this.gl.useProgram(e.program),this.gl.bindVertexArray(this.quad)}sample(e,t,a,o){let i=this.gl;i.activeTexture(i.TEXTURE0+o),i.bindTexture(i.TEXTURE_2D,a),i.uniform1i(e.uniforms[t],o)}draw(e,t){var a,s;this.dirty&&this.resize();let r=this.gl;this.options.reducedMotion?this.reveal=1:(this.sceneTime+=e,this.reveal=Math.min(1,this.reveal+t/2400));let l=+(this.sceneTime<this.windGustUntil),u=l>this.windGust?5.6:2.3;this.windGust+=(l-this.windGust)*(1-Math.exp(-e*u));for(let t=0;t<2;t++)this.pointer[t]+=(this.pointerTarget[t]-this.pointer[t])*(1-Math.exp(-(3*e)));this.pan+=(this.panTarget-this.pan)*(1-Math.exp(-(7.5*e)));let c=this.viewLeft+this.pan,h=Math.min(1,1.9*(this.drawnHorizon<0?0:Math.abs(this.horizon-this.drawnHorizon)/Math.max(e,.004)));this.stir+=(h-this.stir)*(1-Math.exp(-e*(h>this.stir?7:1.3))),(0,o.writeNightMoon)(this.moon,this.viewWidth,this.viewHeight,this.horizon,this.geometry.readingBottom);let d=this.moon[0],m=this.moon[1],f=this.moon[2],p=4*this.cols,v=6*this.rows;this.bind(this.sky,this.multisample?{texture:this.scene.texture,framebuffer:this.multisample.framebuffer}:this.scene,p,v),r.uniform1f(this.sky.uniforms.uAspect,this.aspect),r.uniform1f(this.sky.uniforms.uTime,this.sceneTime),r.uniform1f(this.sky.uniforms.uHorizon,this.horizon),r.uniform1f(this.sky.uniforms.uReadingSpace,+!!this.compactSky),r.uniform1f(this.sky.uniforms.uStir,this.options.reducedMotion?0:this.stir),r.uniform3fv(this.sky.uniforms.uSky,b),r.uniform3f(this.sky.uniforms.uMoon,d,m,f),r.drawArrays(r.TRIANGLE_STRIP,0,4);let x=(a=this.geometry.readingBottom,s=this.rows,a<=0?0:i(a+1/Math.max(1,s)));r.enable(r.SCISSOR_TEST),r.scissor(0,0,p,Math.floor((1-x)*v)),this.horizon>.004&&(r.useProgram(this.field.program),r.bindVertexArray(this.meadow),r.uniform1f(this.field.uniforms.uAspect,this.aspect),r.uniform1f(this.field.uniforms.uViewLeft,c),r.uniform1f(this.field.uniforms.uTime,this.sceneTime),r.uniform1f(this.field.uniforms.uLift,(1-this.horizon)*n.FIELD_LIFT-this.horizon*n.FIELD_SETTLE),r.uniform2f(this.field.uniforms.uMoonPosition,d+c,m),r.uniform1f(this.field.uniforms.uStir,this.stir),r.uniform1f(this.field.uniforms.uGust,this.windGust),r.uniform2f(this.field.uniforms.uPointer,this.pointer[0],this.pointer[1]),r.uniform3fv(this.field.uniforms.uSky,b),r.drawArrays(r.TRIANGLES,0,this.count)),this.drawFlowerBurst(c,this.windGust),r.disable(r.SCISSOR_TEST),this.multisample&&(r.bindFramebuffer(r.READ_FRAMEBUFFER,this.multisample.framebuffer),r.bindFramebuffer(r.DRAW_FRAMEBUFFER,this.scene.framebuffer),r.blitFramebuffer(0,0,p,v,0,0,p,v,r.COLOR_BUFFER_BIT,r.NEAREST),r.bindFramebuffer(r.FRAMEBUFFER,null));let g=1-this.previous;this.bind(this.cells,this.cellTargets[g],this.cols,this.rows),this.sample(this.cells,"uScene",this.scene.texture,0),this.sample(this.cells,"uShapes",this.shapes,1),this.sample(this.cells,"uPrevious",this.cellTargets[this.previous].texture,2),r.uniform2f(this.cells.uniforms.uGrid,this.cols,this.rows),r.uniform3f(this.cells.uniforms.uMoon,d,m,f),r.uniform1f(this.cells.uniforms.uAspect,this.aspect),r.uniform1f(this.cells.uniforms.uHorizon,this.horizon);let A=Math.max(Math.abs(this.horizon-this.drawnHorizon)*(n.FIELD_LIFT+n.FIELD_SETTLE)*this.rows,Math.abs(c-this.viewLeftDrawn)/this.aspect*this.cols);r.uniform1f(this.cells.uniforms.uHistory,this.history?Math.max(0,1-A):0),r.drawArrays(r.TRIANGLE_STRIP,0,4),this.bind(this.print,null,this.options.canvas.width,this.options.canvas.height),this.sample(this.print,"uCells",this.cellTargets[g].texture,0),this.sample(this.print,"uAtlas",this.atlas,1),r.uniform2f(this.print.uniforms.uGrid,this.cols,this.rows),r.uniform1f(this.print.uniforms.uReveal,this.reveal),r.uniform1f(this.print.uniforms.uAspect,this.aspect),r.uniform1f(this.print.uniforms.uMobileColorBoost,this.phoneColorBoost),r.uniform1f(this.print.uniforms.uBotanicalPalette,+!!this.botanicalPalette),r.uniform3fv(this.print.uniforms.uSky,b),r.drawArrays(r.TRIANGLE_STRIP,0,4),this.previous=g,this.history=!0,this.drawnHorizon=this.horizon,this.viewLeftDrawn=c;let w=this.options.canvas;w.dataset.assembly=1===this.reveal?"complete":"building",w.dataset.horizon=this.horizon.toFixed(3),w.dataset.readingBottom=this.geometry.readingBottom.toFixed(3),w.dataset.fieldClip=x.toFixed(3),this.firstFrame&&(this.firstFrame=!1,this.options.onReady())}presence;draw_;wake(){this.disposed||this.unsubscribe||(this.budget.reset(),this.unsubscribe=(0,t.subscribeToFrames)({name:"ascii-night",fps:this.fps,presence:this.presence,draw:this.draw_}))}sleep(){this.unsubscribe?.(),this.unsubscribe=null,this.budget.recoverWhileHidden()&&(this.dirty=!0)}onScroll;onResize;onVisibility;onContextLost;onContextRestored;onPointer;onPointerLeave;ensureFlowerBurst(){if(this.canClickFlowers()&&!this.flowerBurst&&!this.flowerBurstUnavailable)try{this.flowerBurst=this.program(p,v)}catch(e){this.flowerBurstUnavailable=!0}}canClickFlowers(){return!this.options.reducedMotion&&(!matchMedia(A).matches||Math.min(window.innerWidth,window.innerHeight)>n.PHONE_COLOR_BOOST_SHORT_SIDE_MAX)}onFlowerClick;drawFlowerBurst(e,t){for(let e=this.flowerBursts.length-1;e>=0;e--)this.sceneTime-this.flowerBursts[e].startedAt>=1.45&&this.flowerBursts.splice(e,1);let a=this.flowerBurst;if(!a||!this.flowerBursts.length||this.horizon<=.004)return;let o=this.gl;for(let i of(o.enable(o.BLEND),o.blendFunc(o.SRC_ALPHA,o.ONE_MINUS_SRC_ALPHA),o.useProgram(a.program),o.bindVertexArray(this.quad),o.uniform1f(a.uniforms.uAspect,this.aspect),o.uniform1f(a.uniforms.uViewLeft,e),o.uniform1f(a.uniforms.uLift,(1-this.horizon)*n.FIELD_LIFT-this.horizon*n.FIELD_SETTLE),o.uniform1f(a.uniforms.uPetalCount,24),this.flowerBursts)){let e=this.sceneTime-i.startedAt;e<0||(o.uniform1f(a.uniforms.uAge,e),o.uniform1f(a.uniforms.uGust,t),o.uniform1f(a.uniforms.uTime,this.sceneTime),o.uniform1f(a.uniforms.uSeed,i.seed),o.uniform2f(a.uniforms.uOrigin,i.x,i.y),o.uniform1f(a.uniforms.uRadius,i.radius),o.uniform1f(a.uniforms.uSquash,i.squash),o.uniform3fv(a.uniforms.uColour,i.colour),o.uniform1f(a.uniforms.uPreserveColour,+!!i.preserveColour),o.drawArrays(o.POINTS,0,56))}o.disable(o.BLEND)}enableOrientation(){return this.orientationBaseline=null,this.orientationSession.enable()}disableOrientation(){this.orientationSession.disable(),this.orientationBaseline=null,this.panTarget=0,this.wake()}onDeviceOrientation;release(){for(let{program:e}of this.programs)this.gl.deleteProgram(e);for(let e of this.textures)this.gl.deleteTexture(e);for(let e of this.framebuffers)this.gl.deleteFramebuffer(e);for(let e of this.buffers)this.gl.deleteBuffer(e);for(let e of this.renderbuffers)this.gl.deleteRenderbuffer(e);for(let e of this.arrays)this.gl.deleteVertexArray(e)}destroy(){this.disposed||(this.disposed=!0,this.sleep(),this.orientationSession.destroy(),this.resizeObserver.disconnect(),this.intersectionObserver.disconnect(),document.removeEventListener("visibilitychange",this.onVisibility),removeEventListener("scroll",this.onScroll),removeEventListener("resize",this.onResize),removeEventListener("pageshow",this.onScroll),removeEventListener("focus",this.onScroll),document.removeEventListener("focusin",this.onScroll),document.removeEventListener("focusout",this.onScroll),window.visualViewport?.removeEventListener("scroll",this.onScroll),window.visualViewport?.removeEventListener("resize",this.onScroll),this.options.canvas.removeEventListener("webglcontextlost",this.onContextLost),this.options.canvas.removeEventListener("webglcontextrestored",this.onContextRestored),this.options.canvas.removeEventListener("pointermove",this.onPointer),this.options.canvas.removeEventListener("pointerleave",this.onPointerLeave),this.options.canvas.removeEventListener("click",this.onFlowerClick),this.release())}}],20348)}]);
+(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,73497,t=>{"use strict";var e=t.i(48035),a=t.i(33031);let l=`rgb(${a.SKY_INK.map(t=>Math.round(255*t)).join(" ")})`,i=a.SKY_INK.map(t=>Math.round(255*t)),h=(t,e,a)=>{let l=Math.max(0,Math.min(1,(a-t)/(e-t)));return l*l*(3-2*l)};t.s(["paintNightFallback",0,function(t,o,n,r=!1,m=!0){let M=Math.min(116,Math.max(36,Math.round(o/7.7))),d=Math.max(30,Math.round(n/(o/M*1.55))),g=document.createElement("canvas");g.width=3*M,g.height=3*d;let u=g.getContext("2d",{willReadFrequently:!0}),f=t.getContext("2d");if(!u||!f)return;let s=o/n,x=(0,a.getNightFlowerLayout)(o,n);u.fillStyle=l,u.fillRect(0,0,g.width,g.height);let c=(0,a.nightRandom)(117),w=(0,e.isNightReadingViewport)(o);for(let t=0;t<130;t++){let e=c()*g.width,a=c()*g.height*.62,l=((e/g.width-.5)/.48)**2+((a/g.height-.42)/.55)**2;w&&!r&&.61803398875*t%1<.8*Math.exp(-(1.6*l))||(u.fillStyle=t%3?"#6d80aa":"#c6d6f2",u.fillRect(e,a,2,2))}let p=s<.65,S=(0,a.isPhoneColorViewport)(o,n),T=new Float32Array(3);(0,e.writeNightMoon)(T,o,n,+!!r,+!r);let b=g.height*(w?T[2]:p?.105:.138),R=w?b*g.width/(s*g.height):b;(!w||r||m)&&(u.fillStyle="#e6f2d9",u.beginPath(),u.ellipse(g.width*(w?T[0]/s:p?.59:.21),g.height*(w?T[1]:p?.13:.32),R,b,0,0,2*Math.PI),u.fill());let y=.5*a.FIELD_LIFT,I=!w||r?(0,a.buildFieldMesh)(s,3,{columns:M,rows:d,tabletFlowerDetail:(0,a.isTabletFlowerViewport)(o),flowerLayout:x,suppressBlueBloom:(0,a.isBlueBloomSuppressedViewport)(o)}):new Float32Array(0);for(let t=0;t<I.length;t+=3*a.VERTEX_STRIDE){u.fillStyle=`rgb(${255*I[t+6]} ${255*I[t+7]} ${255*I[t+8]})`,u.beginPath();for(let e=0;e<3;e++){let l=t+e*a.VERTEX_STRIDE,i=I[l]/s*g.width,h=(I[l+1]+y)*g.height;0===e?u.moveTo(i,h):u.lineTo(i,h)}u.closePath(),u.fill()}let P=u.getImageData(0,0,g.width,g.height).data,F=devicePixelRatio||1,N=matchMedia("(pointer: coarse)").matches?Math.max(F,3):F;t.width=Math.round(o*N),t.height=Math.round(n*N),f.setTransform(N,0,0,N,0,0),f.fillStyle=l,f.fillRect(0,0,o,n);let A=o/M,E=n/d;f.font=`${.97*E}px monospace`,f.textAlign="center",f.textBaseline="middle";let _=" .,:;ox%#@";for(let t=0;t<d;t++)for(let e=0;e<M;e++){let l=((3*t+1)*g.width+3*e+1)*4,o=P[l],n=P[l+1],r=P[l+2],m=1-(t+.5)/d>=.715,M=Math.max(o,n,r)/255,u=(.299*o+.587*n+.114*r)/255,s=m?Math.max(u,.42*M):M;s<=0||(f.fillStyle=function(t,e,a,l,o,n=!1){let r=Math.min(255,1.18*t),m=Math.min(255,1.18*e),M=Math.min(255,1.18*a),d=Math.max(r,m,M),g=(d-Math.min(r,m,M))/Math.max(d,.001),u=+!n,f=h(1.5,2.5,r/Math.max(m,3.825))*h(1.3,1.8,r/Math.max(M,3.825))*h(.52,.72,g)*u,s=h(1.22,1.7,r/Math.max(m,3.825))*h(1.2,1.6,M/Math.max(m,3.825))*h(.86,1.08,M/Math.max(r,3.825)),x=s*u,c=h(1.55,1.9,M/Math.max(m,3.825))*h(1.5,2,M/Math.max(r,3.825))*(1-s),w=r*(1-.42*x),p=m*(1-.48*x)*(1-.58*f),S=M*(1-.38*f),T=.2126*w+.7152*p+.0722*S,b=255*(T/255)**(l?.84:.94),R=(l?1.34:1.12)+.12*!!o+.24*x+.22*c,y=t=>Math.round(Math.max(0,Math.min(255,b+(t-T)*R))),I=[y(w),y(p),y(S)];if(e>1.14*Math.max(t,a)&&e>18){let t=l?.9:.84;return`rgb(${I.map((e,a)=>Math.round(i[a]+(e-i[a])*t)).join(" ")})`}return`rgb(${I.join(" ")})`}(o,n,r,p,S,"ultrawide"===x),f.fillText(m?a.ANISO_GLYPHS[Math.min(a.ANISO_GLYPHS.length-1,Math.floor(s*(a.ANISO_GLYPHS.length-1)))]:_[Math.min(_.length-1,Math.ceil(s*(_.length-1)))],(e+.5)*A,(t+.5)*E))}}])}]);
+  })({TURBOPACK:{push:register}});
+  const {AsciiNightRenderer}=requireModule(20348);
+  const {paintNightFallback}=requireModule(73497);
+  const section=document.getElementById('contact');
+  const canvas=document.getElementById('contact-canvas');
+  const still=document.getElementById('contact-still');
+  const stage=document.getElementById('contact-night');
+  const camera=document.getElementById('contact-meadow');
+  const reading=section.querySelector('[data-night-reading]');
+  const preference=matchMedia('(prefers-reduced-motion: reduce)');
+  let renderer=null,resize=null,fallbackQueued=0;
+  function paintFallback(){
+    fallbackQueued=0;
+    const box=reading.getBoundingClientRect();
+    const width=still.clientWidth,height=still.clientHeight;
+    paintNightFallback(still,width,height,box.bottom<=0,box.top>=0);
+  }
+  function queueFallback(){
+    if(!fallbackQueued)fallbackQueued=requestAnimationFrame(paintFallback);
+  }
+  function fallback(error){
+    stage.dataset.renderer='fallback';
+    canvas.dataset.error=error?.message||'WebGL2 unavailable';
+    renderer?.destroy();renderer=null;
+    if(!resize){
+      resize=new ResizeObserver(queueFallback);resize.observe(still);
+      window.addEventListener('scroll',queueFallback,{passive:true});
+    }
+    queueFallback();
+  }
+  function start(){
+    renderer?.destroy();renderer=null;
+    resize?.disconnect();resize=null;
+    window.removeEventListener('scroll',queueFallback);
+    if(fallbackQueued)cancelAnimationFrame(fallbackQueued);fallbackQueued=0;
+    stage.dataset.renderer='loading';
+    try{
+      renderer=new AsciiNightRenderer({
+        canvas,range:section,camera,reducedMotion:preference.matches,
+        onReady(){stage.dataset.renderer='ready'},
+        onFailure:fallback,
+        onOrientationState(state){canvas.dataset.orientation=state}
+      });
+      // A matching still frame remains available before the GPU's first draw.
+      paintFallback();
+    }catch(error){fallback(error)}
+  }
+  // Pointer events pass through the decorative layer while all contact links work.
+  section.addEventListener('pointermove',event=>renderer?.onPointer(event),{passive:true});
+  section.addEventListener('pointerleave',()=>renderer?.onPointerLeave());
+  section.addEventListener('click',event=>{
+    if(!event.target.closest('a,button,input,textarea,select'))renderer?.onFlowerClick(event);
+  });
+  canvas.addEventListener('ascii:restore',start);
+  preference.addEventListener('change',start);
+  window.addEventListener('pagehide',()=>{renderer?.sleep()});
+  start();
+})();
+
+
+</script>
+</body>
+</html>
