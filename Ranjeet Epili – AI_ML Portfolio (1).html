@@ -15,7 +15,7 @@
   --muted:#a1a1aa;   /* neutral grey, no blue tint */
   --card:#09090b;    /* cards sit just above the background */
   --line:#232326;    /* dashed lines and borders */
-  --dot:#1c1c1f;     /* background dot grid */
+  --dot:rgba(255, 255, 255, 0.135); /* 20% brighter dot matrix */     /* background dot grid */
   --accent:#f5a524; --ok:#4ade80; color-scheme:dark;
   box-sizing:border-box;
   padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
@@ -23,7 +23,7 @@
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 5rem)}
 body{margin:0;background:var(--bg);color:var(--fg);font:400 1rem/1.65 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
-  background-image:radial-gradient(var(--dot) 1px,transparent 1.2px);background-size:26px 26px}
+  background-image:radial-gradient(var(--dot) 1.15px, transparent 1.35px);background-size:26px 26px}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
 a{color:var(--accent)}
 a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
@@ -222,40 +222,392 @@ section{padding:4rem 0;border-top:1px dashed var(--line)}
 .contact-foot{margin-top:1.6rem;color:var(--muted);font-size:.85rem;border-top:none;padding:0;pointer-events:auto}
 .contact-meadow{position:relative;min-height:clamp(280px,40vh,420px);z-index:1;pointer-events:none}
 footer{padding:2rem 0 3rem;border-top:1px dashed var(--line);color:var(--muted);font-size:.85rem}
-@media(max-width:820px){
-  .contact .cta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:min(370px,100%);margin:0 auto}
-  .contact .cta .btn{padding:.85rem .6rem}
-  .contact .email{gap:.6rem;padding:1rem .8rem;letter-spacing:-.04em}
-}
-@media(max-height:650px){
-  .contact-content{padding:1.8rem 0 .8rem}
-  .contact h2{margin-bottom:.8rem}
-  .contact .hint{margin:.3rem 0 1.2rem}
-  .contact-foot{margin-top:1rem}
+@media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+  a, button {
+    touch-action: manipulation;
+  }
+
+  /* Wrap container */
+  .wrap {
+    width: 100%;
+    max-width: 100%;
+    padding: 0 16px;
+    box-sizing: border-box;
+  }
+  .wrap::before, .wrap::after {
+    display: none;
+  }
+
+  /* Sticky header - single sleek row */
+  header.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+    padding: 0.75rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    background: rgba(3, 3, 4, 0.85);
+    border-bottom: 1px dashed var(--line);
+  }
+  header.top b.mono {
+    font-size: 0.88rem;
+    white-space: nowrap;
+    letter-spacing: -0.01em;
+  }
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    width: auto;
+    overflow-x: visible;
+    padding: 0;
+  }
+  nav a {
+    font-size: 0.78rem;
+    padding: 0.2rem 0.05rem;
+    color: var(--muted);
+    transition: color 0.2s;
+  }
+  nav a:hover, nav a.active {
+    color: var(--fg);
+  }
+
+  /* Hero Section */
+  .hero {
+    min-height: auto;
+    padding: 2.2rem 0 2rem;
+    gap: 1.5rem;
+    justify-content: flex-start;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-main {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    position: relative;
+    z-index: 2;
+  }
+  .hero .eyebrow {
+    font-size: 0.76rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: 0.75rem;
+  }
+  .hero h1 {
+    font-size: clamp(1.85rem, 6.8vw, 2.45rem);
+    line-height: 1.18;
+    letter-spacing: -0.04em;
+    margin-bottom: 1.1rem;
+    max-width: 100%;
+    word-break: normal;
+    overflow-wrap: normal;
+    hyphens: none;
+  }
+  .hero .lead {
+    font-size: 0.92rem;
+    line-height: 1.55;
+    color: var(--muted);
+    margin-bottom: 1.75rem;
+    max-width: 100%;
+  }
+
+  /* Portrait: subtly blended in background behind hero text like ameya-k */
+  .hero-art {
+    position: absolute;
+    right: -6%;
+    top: 48%;
+    transform: translateY(-50%);
+    width: clamp(270px, 80vw, 360px);
+    max-width: 85vw;
+    height: auto;
+    max-height: 55vh;
+    object-fit: contain;
+    opacity: 0.32;
+    pointer-events: none;
+    z-index: 1;
+    -webkit-mask-image: radial-gradient(circle at 62% 45%, #000 35%, transparent 88%);
+    mask-image: radial-gradient(circle at 62% 45%, #000 35%, transparent 88%);
+  }
+
+  /* Hero CTA buttons - 2-tier modern grid */
+  .hero .cta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.65rem;
+    width: 100%;
+    max-width: 380px;
+    margin-bottom: 0;
+  }
+  .hero .cta .btn.primary {
+    grid-column: 1 / -1;
+    width: 100%;
+    text-align: center;
+    padding: 0.85rem 1rem;
+    font-size: 0.92rem;
+    font-weight: 600;
+  }
+  .hero .cta .btn:not(.primary) {
+    width: 100%;
+    text-align: center;
+    padding: 0.75rem 0.5rem;
+    font-size: 0.84rem;
+  }
+
+  /* Telemetry Stats */
+  .stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem 1rem;
+    padding: 1.25rem 0 0;
+    border-top: 1px dashed var(--line);
+    width: 100%;
+  }
+  .stat {
+    border: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  .stat .num {
+    font-size: 1.45rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  .stat .label {
+    font-size: 0.74rem;
+    color: var(--muted);
+    line-height: 1.35;
+  }
+
+  /* Projects Section */
+  section {
+    padding: 3rem 0;
+  }
+  h2.mono {
+    font-size: clamp(1.6rem, 5.5vw, 2.2rem);
+    margin-bottom: 0.4rem;
+  }
+  .sec-sub {
+    font-size: 0.82rem;
+    margin-bottom: 1.8rem;
+    color: var(--muted);
+  }
+  .proj {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: 1.8rem 0;
+    border-bottom: 1px dashed var(--line);
+  }
+  .proj .kicker {
+    font-size: 0.74rem;
+    margin-bottom: 0.35rem;
+    color: var(--muted);
+  }
+  .proj h3 {
+    font-size: clamp(1.35rem, 5vw, 1.7rem);
+    line-height: 1.25;
+    margin: 0 0 0.6rem;
+  }
+  .proj .desc {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+  .proj .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 0.9rem;
+  }
+  .proj .tag {
+    font-size: 0.72rem;
+    padding: 0.2rem 0.55rem;
+    border-radius: 4px;
+  }
+  .proj .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+  .proj .links a {
+    font-size: 0.85rem;
+  }
+
+  /* Interactive Terminal */
+  .term {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 8px;
+    margin-top: 0.5rem;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+  .term-bar {
+    padding: 0.45rem 0.85rem;
+    font-size: 0.72rem;
+  }
+  .term-body {
+    padding: 0.85rem 1rem;
+    font-size: 0.76rem;
+    line-height: 1.6;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .term-foot {
+    padding: 0.45rem 0.85rem;
+    font-size: 0.7rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* About & Experience & Skills */
+  .about {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .skillgrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  .skillgrid h3 {
+    font-size: 0.92rem;
+    margin-bottom: 0.6rem;
+  }
+  .roles {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .role {
+    padding: 1.15rem;
+    border-radius: 8px;
+  }
+  .timeline {
+    padding-left: 1.2rem;
+    margin-left: 0;
+  }
+  .graph {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 0.85rem;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .graph .scroll {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .graph img {
+    max-width: none;
+  }
+
+  /* Contact Section */
+  .contact {
+    padding: 0;
+    text-align: center;
+  }
+  .contact-content {
+    padding: clamp(2rem, 5vh, 3.2rem) 0 1rem;
+  }
+  .contact h2 {
+    font-size: clamp(2rem, 6vw, 2.6rem);
+    margin-bottom: 1rem;
+  }
+  .contact .email {
+    width: min(100%, 360px);
+    padding: 0.95rem 1.1rem;
+    font-size: clamp(0.85rem, 3.8vw, 1.05rem);
+    gap: 0.75rem;
+    margin: 0.8rem auto 0.4rem;
+    justify-content: center;
+  }
+  .contact .hint {
+    font-size: 0.74rem;
+    margin: 0.4rem 0 1.4rem;
+  }
+  .contact .cta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.65rem;
+    width: min(100%, 360px);
+    margin: 0 auto;
+  }
+  .contact .cta .btn {
+    width: 100%;
+    padding: 0.75rem 0.5rem;
+    font-size: 0.84rem;
+    text-align: center;
+  }
+  .contact-foot {
+    margin-top: 1.4rem;
+    font-size: 0.78rem;
+  }
+  .contact-meadow {
+    min-height: clamp(260px, 38vh, 380px);
+  }
 }
 
-@media (max-width:820px){
-  header.top{flex-wrap:wrap;gap:.4rem 1rem;padding:.8rem 0 .5rem}
-  nav{width:100%;overflow-x:auto;gap:1.6rem;padding-bottom:.4rem;scrollbar-width:none}
-  nav::-webkit-scrollbar{display:none}
-  .proj,.about{grid-template-columns:1fr}
-  .about{gap:1.5rem}
-  .skillgrid{grid-template-columns:1fr}
-  .roles{grid-template-columns:1fr}
-  .cta .btn{flex:1 1 100%;text-align:center;padding:.85rem 1.1rem}
-  .stats{display:grid;grid-template-columns:1fr 1fr}
-  .stat{border:0;margin-right:0;padding-right:0}
-  .hero-art{opacity:.25;max-width:100%;right:-10%}
+/* Extra small phones (<= 390px) */
+@media (max-width: 390px) {
+  header.top {
+    gap: 0.35rem;
+  }
+  header.top b.mono {
+    font-size: 0.82rem;
+  }
+  nav {
+    gap: 0.45rem;
+  }
+  nav a {
+    font-size: 0.74rem;
+  }
+  .hero h1 {
+    font-size: 1.82rem;
+    line-height: 1.2;
+  }
+  .hero .lead {
+    font-size: 0.85rem;
+  }
+  .hero-art {
+    width: 240px;
+    right: -15%;
+    opacity: 0.28;
+  }
 }
+
 @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
 </style>
 </head>
+
 <body>
 <a class="skip" href="#work">Skip to content</a>
 <div class="wrap">
 <header class="top">
   <b class="mono">ranjeet epili</b>
-  <nav aria-label="Main"><a href="#work">work.</a><a href="#about">about.</a><a href="./Ranjeet_Epili_AI_ML_Intern_Resume.pdf" target="_blank" rel="noopener">resume.</a><a href="#contact">contact.</a></nav>
+  <nav aria-label="Main"><a href="#work">work.</a><a href="#about">about.</a><a href="#resume">resume.</a><a href="#contact">contact.</a></nav>
 </header>
 
 <main>
@@ -282,7 +634,7 @@ footer{padding:2rem 0 3rem;border-top:1px dashed var(--line);color:var(--muted);
       <h3>La Roche Cafe</h3>
       <p class="desc">A full-stack pre-ordering app for my campus canteen. Students order ahead, skip the queue, and track their food, while the kitchen sees orders live on a real-time dashboard.</p>
       <ul class="tags"><li class="tag">React</li><li class="tag">Node.js</li><li class="tag">Express</li><li class="tag">MongoDB</li><li class="tag">Socket.IO</li><li class="tag">Razorpay</li></ul>
-      <div class="links"><a href="https://www.larochecafe.in" rel="noopener">Live app ↗</a></div>
+      <div class="links"><a href="https://laroche-cafe.vercel.app/" rel="noopener">Live app ↗</a></div>
     </div>
     <div class="term" data-term>
       <div class="term-bar"><i></i><i></i><i></i><em>kitchen · sample session</em></div>
@@ -412,7 +764,7 @@ footer{padding:2rem 0 3rem;border-top:1px dashed var(--line);color:var(--muted);
         <li>AI/ML program with IIT Patna at Masai School</li>
         <li>Maintaining TokenCraft, my open-source GPT</li>
       </ul>
-      <h3 class="mono">interests</h3>
+      <h3 class="mono">interests {}</h3>
       <ul>
         <li>Language models and transformers</li>
         <li>Computer vision and audio</li>
@@ -424,8 +776,10 @@ footer{padding:2rem 0 3rem;border-top:1px dashed var(--line);color:var(--muted);
 </section>
 
 <section id="resume">
-  <h2 class="mono">Experience</h2>
-    <div class="roles">
+  <h2 class="mono">resume</h2>
+  <p class="sec-sub mono">experience and skills</p>
+  <h3 class="mono grp">experience</h3>
+  <div class="roles">
     <article class="role">
       <h3>Operations Assistant</h3>
       <p class="when mono">Eyeconic by Dr. Lalla · Oct 2024 – Jan 2025</p>
